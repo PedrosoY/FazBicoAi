@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro - Faz um Bico Aí</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/cadastro.css">
+</head>
+<body>
+  <header class="cabecalho">
+    <div class="cabecalho-superior">
+      <div class="logo">
+        <img src="assets/imgs/logo.png" alt="Logo do Faz um Bico Aí">
+      </div>
+      <div class="info-site">
+        <p>Faz um Bico Aí!</p>
+      </div>
+    </div>
+    <div class="cabecalho-inferior">
+      <nav class="menu">
+        <ul>
+          <li><a href="../index.html">Início</a></li>
+          <li><a href="sobre_nos.html">Sobre</a></li>
+          <li><a href="contato.html">Contato</a></li>
+          <li><a href="login.html">Entrar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="cadastro-wrapper">
+    <div class="cadastro-card">
+      <h1>Cadastre-se</h1>
+      <form action="#" method="post">
+        <label for="nome">Nome Completo</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="seu@exemplo.com" required>
+
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" placeholder="••••••••" required>
+
+        <label for="confirma-senha">Confirmar Senha</label>
+        <input type="password" id="confirma-senha" name="confirma-senha" placeholder="••••••••" required>
+
+        <button type="submit">Registrar</button>
+      </form>
+      <p class="link-login">Já tem conta? <a href="login.html">Entrar</a></p>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <p>&copy; 2025 - Faz um Bico Aí. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>

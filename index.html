@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faz um Bico Aí - Página Inicial</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Ajuste o caminho conforme sua estrutura de pastas -->
+  <link rel="stylesheet" href="css/menu_principal.css">
+</head>
+
+<body>
+
+  <!-- Cabeçalho -->
+  <header class="cabecalho">
+    <!-- Linha superior: Logo e Nome do Site -->
+    <div class="cabecalho-superior">
+      <div class="logo">
+        <img src="../assets/imgs/logo.png" alt="Logo do Faz um Bico Aí">
+      </div>
+      <div class="info-site">
+        <p>Faz um Bico Aí!</p>
+      </div>
+    </div>
+    <!-- Linha inferior: Menu -->
+    <div class="cabecalho-inferior">
+      <nav class="menu">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="html/sobre_nos.html">Sobre</a></li>
+          <li><a href="html/contato.html">Contato</a></li>
+          <li><a href="html/login.html">Entrar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Área Principal -->
+  <div class="area-principal">
+    <!-- Coluna Esquerda: Cards de Destaque (empilhados verticalmente) -->
+    <section class="destaques">
+      <article class="card">
+        <img src="../assets/imgs/destaque1.jpg" alt="Destaque 1">
+        <h3>Destaque 1</h3>
+        <p>Descrição breve do destaque 1.</p>
+      </article>
+      <article class="card">
+        <img src="../assets/imgs/destaque2.jpg" alt="Destaque 2">
+        <h3>Destaque 2</h3>
+        <p>Descrição breve do destaque 2.</p>
+      </article>
+      <article class="card">
+        <img src="../assets/imgs/destaque3.jpg" alt="Destaque 3">
+        <h3>Destaque 3</h3>
+        <p>Descrição breve do destaque 3.</p>
+      </article>
+    </section>
+
+    <!-- Coluna Direita: Filtros e Anúncios de Bicos Recentes -->
+    <section class="anuncios" id="lista-bicos">
+      <!-- Filtros posicionados no topo -->
+      <div class="filtros">
+        <div class="filtro-item">
+          <label for="categoria">Categoria:</label>
+          <select name="categoria" id="categoria">
+            <option value="">Selecione</option>
+            <option value="limpeza">Limpeza</option>
+            <option value="manutencao">Manutenção</option>
+            <option value="entrega">Entrega</option>
+          </select>
+        </div>
+        <div class="filtro-item">
+          <label for="local">Local:</label>
+          <input type="text" id="local" name="local" placeholder="Cidade ou Bairro" />
+        </div>
+        <div class="filtro-item">
+          <button type="button">Buscar</button>
+        </div>
+      </div>
+
+      <h2>Anúncios de Bicos Recentes</h2>
+      <div class="container-anuncios">
+        <div class="grade-anuncios">
+          <!-- Card 1 -->
+          <article class="card">
+            <img src="../assets/imgs/card1.jpg" alt="Digitação de Documentos">
+            <h3>Digitação de Documentos</h3>
+            <p>Preciso de alguém para digitar 20 páginas de um manuscrito. Urgente!</p>
+            <span class="valor">R$ 40,00</span>
+          </article>
+          <!-- Card 2 -->
+          <article class="card">
+            <img src="../assets/imgs/card2.jpg" alt="Montagem de Móveis">
+            <h3>Montagem de Móveis</h3>
+            <p>Montar uma estante e um guarda-roupas. Ferramentas inclusas.</p>
+            <span class="valor">R$ 80,00</span>
+          </article>
+          <!-- Card 3 -->
+          <article class="card">
+            <img src="../assets/imgs/card3.jpg" alt="Serviço de Entrega">
+            <h3>Serviço de Entrega</h3>
+            <p>Levar pacotes do centro para a zona norte da cidade. Pagamento no ato.</p>
+            <span class="valor">R$ 30,00</span>
+          </article>
+          <!-- Card 4 -->
+          <article class="card">
+            <img src="../assets/imgs/card1.jpg" alt="Exemplo Card 4">
+            <h3>Exemplo Card 4</h3>
+            <p>Descrição do card 4.</p>
+            <span class="valor">R$ 50,00</span>
+          </article>
+          <!-- Card 5 -->
+          <article class="card">
+            <img src="../assets/imgs/card2.jpg" alt="Exemplo Card 5">
+            <h3>Exemplo Card 5</h3>
+            <p>Descrição do card 5.</p>
+            <span class="valor">R$ 60,00</span>
+          </article>
+          <!-- Card 6 -->
+          <article class="card">
+            <img src="../assets/imgs/card3.jpg" alt="Exemplo Card 6">
+            <h3>Exemplo Card 6</h3>
+            <p>Descrição do card 6.</p>
+            <span class="valor">R$ 70,00</span>
+          </article>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Paginação -->
+  <div class="paginacao">
+    <a href="#">&laquo; Anterior</a>
+    <a href="#">1</a>
+    <a href="#" class="ativo">2</a>
+    <a href="#">3</a>
+    <a href="#">Próximo &raquo;</a>
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="rodape">
+    <p>&copy; 2025 - Faz um Bico Aí. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+
+</html>

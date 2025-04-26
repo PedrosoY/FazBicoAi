@@ -1,0 +1,270 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background: #f5f5f5;
+  color: #333;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ---------- HEADER ---------- */
+.header {
+  background: #FFA000;
+  color: #fff;
+  padding: 1rem 2rem;
+}
+
+.header-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.header-logo img {
+  height: 50px;
+}
+
+.header-filtros {
+  background: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.header-filtros select,
+.header-filtros input {
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.header-filtros button {
+  background: #ff9800;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.header-filtros button:hover {
+  background: #e68a00;
+}
+
+.header-menu ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.header-menu li a {
+  color: #fff;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* ---------- PERFIL DO PROFISSIONAL ---------- */
+.profile-section {
+  background: #fff;
+  margin: 1rem 2rem;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-foto img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #FFA000;
+}
+
+.profile-infos {
+  flex: 1;
+}
+
+.profile-infos .profile-nome {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.profile-infos .profile-desc {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.6rem;
+}
+
+.profile-selos img {
+  height: 30px;
+  margin-right: 0.5rem;
+}
+
+.profile-action {
+  text-align: center;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.negociacao-btn {
+  background: #ff9800;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.negociacao-btn:hover {
+  background: #e68a00;
+}
+
+/* ---------- ÁREA PRINCIPAL - Serviços Realizados ---------- */
+.main-container {
+  padding: 2rem;
+}
+
+.cards-container {
+  background: #fff;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.cards-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  color: #333;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 0 1rem 1rem;
+}
+
+.card {
+  background: #fafafa;
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.card p {
+  font-size: 0.95rem;
+  flex: 1;
+  color: #555;
+}
+
+.card-valor {
+  font-weight: bold;
+  color: #ff9800;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+/* ---------- PAGINAÇÃO (Opcional) ---------- */
+.paginacao {
+  text-align: center;
+  margin: 1rem 2rem;
+}
+
+.paginacao a {
+  display: inline-block;
+  margin: 0 0.2rem;
+  padding: 0.5rem 0.8rem;
+  color: #333;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  transition: background 0.3s;
+}
+
+.paginacao a.active,
+.paginacao a:hover {
+  background: #ff9800;
+  color: #fff;
+  border-color: #ff9800;
+}
+
+/* ---------- RODAPÉ ---------- */
+.footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 2rem;
+  margin-top: 2rem;
+}
+
+/* ---------- RESPONSIVIDADE ---------- */
+@media (max-width: 768px) {
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .header-menu ul {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .profile-section {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .profile-infos, .profile-action {
+    width: 100%;
+  }
+  
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .main-container {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+  }
+  body {
+    background: #f5f5f5;
+    color: #333;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* --- CABEÇALHO --- */
+  .cabecalho {
+    background: #000;
+    color: #fff;
+    padding: 1rem 2rem;
+  }
+  .cabecalho-superior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  .logo img {
+    height: 50px;
+  }
+  .info-site {
+    margin-left: 1rem;
+    flex: 1;
+  }
+  .cabecalho-inferior {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .menu ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+  .menu li a {
+    font-weight: bold;
+    color: #fff;
+    transition: color 0.2s;
+  }
+  .menu li a:hover {
+    color: #ff9800;
+  }
+  
+  /* --- FORMULÁRIO DE RESET --- */
+  .reset-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 160px); /* header + footer */
+    padding: 2rem;
+    background: #f0f2f5;
+  }
+  .reset-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+  }
+  .reset-card h1 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: #333;
+  }
+  .reset-card p {
+    margin-bottom: 1.5rem;
+    color: #555;
+  }
+  .reset-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .reset-card label {
+    text-align: left;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  .reset-card input {
+    padding: 0.7rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  .reset-card input:focus {
+    outline: none;
+    border-color: #ff9800;
+    box-shadow: 0 0 0 2px rgba(255,152,0,0.2);
+  }
+  .reset-card button {
+    padding: 0.8rem;
+    background: #ff9800;
+    color: #fff;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .reset-card button:hover {
+    background: #e68a00;
+  }
+  .reset-card .link-login {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  .reset-card .link-login a {
+    color: #ff9800;
+    font-weight: bold;
+    transition: opacity 0.2s;
+  }
+  .reset-card .link-login a:hover {
+    opacity: 0.8;
+  }
+  
+  /* --- RODAPÉ --- */
+  .rodape {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 2rem;
+    margin-top: 2rem;
+  }
+  
+  /* --- RESPONSIVIDADE --- */
+  @media (max-width: 480px) {
+    .reset-card {
+      padding: 1.5rem;
+    }
+    .reset-card h1 {
+      font-size: 1.5rem;
+    }
+  }
+  
