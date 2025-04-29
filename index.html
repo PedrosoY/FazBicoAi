@@ -143,6 +143,51 @@
     <p>&copy; 2025 - Faz um Bico Aí. Todos os direitos reservados.</p>
   </footer>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2
+      };
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, options);
+
+      // Seletor unificado para todas as seções animadas
+      const elementos = document.querySelectorAll(
+        '.cabecalho-superior, .cabecalho-inferior, .filtros, ' +
+        '.destaques .card, .anuncios h2, .grade-anuncios .card, ' +
+        '.paginacao a, .rodape'
+      );
+      elementos.forEach(el => observer.observe(el));
+    });
+  document.addEventListener('DOMContentLoaded', () => {
+    // Seleciona todos os cards nas duas seções
+    const cards = document.querySelectorAll('.destaques .card, .grade-anuncios .card');
+
+    cards.forEach(card => {
+      // Cria um <a> envoltório
+      const link = document.createElement('a');
+      link.href = 'html/profissional.html';
+      // Faz com que ocupe o espaço todo do card
+      link.style.display = 'block';
+      link.style.textDecoration = 'none';
+      // Insere o <a> no lugar do card e move o card para dentro dele
+      card.parentNode.replaceChild(link, card);
+      link.appendChild(card);
+
+      // Opcional: muda o cursor ao passar o mouse
+      card.style.cursor = 'pointer';
+    });
+  });
+</script>
+
 </body>
 
 </html>

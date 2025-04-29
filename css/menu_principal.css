@@ -1,16 +1,15 @@
-/* Reset e configurações básicas */
+/* Reset e básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
-
 body {
   background: #f5f5f5;
   color: #333;
+  line-height: 1.6;
 }
-
 a {
   text-decoration: none;
   color: inherit;
@@ -22,36 +21,41 @@ a {
   color: #fff;
   padding: 1rem 2rem;
 }
-
+.cabecalho-superior,
+.cabecalho-inferior {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+.cabecalho-superior.visible,
+.cabecalho-inferior.visible {
+  animation: fadeInDown 0.8s ease forwards;
+}
+.cabecalho-superior { animation-delay: 0.2s; }
+.cabecalho-inferior { animation-delay: 0.4s; }
 .cabecalho-superior {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.5rem;
 }
-
 .logo img {
   height: 50px;
 }
-
 .info-site {
   margin-left: 1rem;
   flex: 1;
 }
-
 .cabecalho-inferior {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
 }
-
 .menu ul {
   list-style: none;
   display: flex;
   gap: 1rem;
 }
-
 .menu li a {
   font-weight: bold;
 }
@@ -67,19 +71,22 @@ a {
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(-20px);
 }
-
+.filtros.visible {
+  animation: fadeInDown 0.8s ease forwards;
+  animation-delay: 0.6s;
+}
 .filtros .filtro-item {
   display: flex;
   align-items: center;
   gap: 0.3rem;
 }
-
 .filtros label {
   font-size: 0.9rem;
   font-weight: bold;
 }
-
 .filtros select,
 .filtros input {
   padding: 0.4rem;
@@ -87,7 +94,6 @@ a {
   border-radius: 4px;
   min-width: 120px;
 }
-
 .filtros button {
   background: #ff9800;
   color: #fff;
@@ -96,15 +102,11 @@ a {
   cursor: pointer;
   border-radius: 4px;
 }
-
 .filtros button:hover {
   background: #e68a00;
 }
 
 /* ---------- ÁREA PRINCIPAL ---------- */
-/* Estrutura de duas colunas: 
-   - Esquerda: Destaques (empilhados verticalmente)
-   - Direita: Anúncios com filtros no topo */
 .area-principal {
   display: grid;
   grid-template-columns: 0.6fr 2fr;
@@ -114,7 +116,7 @@ a {
 
 /* ---------- CARDS DE DESTAQUE (Esquerda) ---------- */
 .destaques {
-  background: #fff;
+  background: white; /* fundo mais cinza */
   border-radius: 5px;
   padding: 1rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -122,73 +124,88 @@ a {
   flex-direction: column;
   gap: 1rem;
 }
+.destaques .card {
+  opacity: 0;
+  transform: translateX(-30px);
+  background: #ddd; /* card com cinza mais escuro */
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.destaques .card.visible {
+  animation: fadeInLeft 0.6s ease forwards;
+}
+.destaques .card.visible:nth-child(1) { animation-delay: 0.8s; }
+.destaques .card.visible:nth-child(2) { animation-delay: 1.0s; }
+.destaques .card.visible:nth-child(3) { animation-delay: 1.2s; }
+
+/* Garante que o <a> envoltório seja bloco e herde margens */
+.destaques a,
+.grade-anuncios a {
+  display: block;
+}
+/* Remove qualquer estilo padrão em hover */
+.destaques a:hover .card,
+.grade-anuncios a:hover .card {
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
 
 /* ---------- ANÚNCIOS (Direita) ---------- */
 .anuncios {
-  background: #fff;
+  background: white; /* fundo cinza para toda a seção */
   border-radius: 5px;
   padding: 1rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  /* Removida altura fixa para evitar scroll */
 }
 
 .anuncios h2 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateX(30px);
 }
-
-/*.container-anuncios {
-  
-}*/
+.anuncios h2.visible {
+  animation: fadeInRight 0.8s ease forwards;
+  animation-delay: 0.8s;
+}
 
 .grade-anuncios {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, auto);
   gap: 1.5rem;
 }
-
-/* ---------- CARTÕES GERAIS ---------- */
-.card {
-  background: #fafafa;
+.grade-anuncios .card {
+  opacity: 0;
+  transform: translateY(30px);
+  background: #ddd; /* card com cinza */
   padding: 1rem;
   border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 100%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
+.grade-anuncios .card.visible {
+  animation: fadeIn 0.6s ease forwards;
+}
+.grade-anuncios .card.visible:nth-child(1) { animation-delay: 1.0s; }
+.grade-anuncios .card.visible:nth-child(2) { animation-delay: 1.2s; }
+.grade-anuncios .card.visible:nth-child(3) { animation-delay: 1.4s; }
+.grade-anuncios .card.visible:nth-child(4) { animation-delay: 1.6s; }
+.grade-anuncios .card.visible:nth-child(5) { animation-delay: 1.8s; }
+.grade-anuncios .card.visible:nth-child(6) { animation-delay: 2.0s; }
 
+/* Imagens com altura dinâmica */
 .card img {
   width: 100%;
-  height: 140px;
+  height: auto; /* altura dinâmica */
   object-fit: cover;
   border-radius: 5px;
 }
 
-.card h3 {
-  font-size: 1.1rem;
-}
-
-.card p {
-  font-size: 0.95rem;
-  flex: 1;
-}
-
-.valor {
-  font-weight: bold;
-  color: #ff9800;
-}
-
 /* ---------- PAGINAÇÃO ---------- */
-.paginacao {
-  text-align: center;
-  margin: 1rem 2rem;
-}
-
 .paginacao a {
   display: inline-block;
   margin: 0 0.2rem;
@@ -197,13 +214,18 @@ a {
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 3px;
-}
 
-.paginacao a.ativo {
-  background: #ff9800;
-  color: #fff;
-  border-color: #ff9800;
+  opacity: 0;
+  transform: scale(0.8);
 }
+.paginacao a.visible {
+  animation: popIn 0.4s ease forwards;
+}
+.paginacao a.visible:nth-child(1) { animation-delay: 2.2s; }
+.paginacao a.visible:nth-child(2) { animation-delay: 2.4s; }
+.paginacao a.visible:nth-child(3) { animation-delay: 2.6s; }
+.paginacao a.visible:nth-child(4) { animation-delay: 2.8s; }
+.paginacao a.visible:nth-child(5) { animation-delay: 3.0s; }
 
 /* ---------- RODAPÉ ---------- */
 .rodape {
@@ -212,6 +234,39 @@ a {
   text-align: center;
   padding: 1rem 2rem;
   margin-top: 2rem;
+
+  opacity: 0;
+  transform: translateY(20px);
+}
+.rodape.visible {
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: 3.2s;
+}
+
+/* ---------- KEYFRAMES ---------- */
+@keyframes fadeInDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInLeft {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInRight {
+  0% { opacity: 0; transform: translateX(30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 /* ---------- RESPONSIVIDADE ---------- */
@@ -220,27 +275,20 @@ a {
     display: flex;
     flex-direction: column;
   }
-
   .cabecalho-inferior {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
   }
-
   .menu ul {
     flex-wrap: wrap;
     gap: 0.5rem;
   }
-
-  /* Filtros em tela pequena: ocupa a largura completa */
   .filtros {
     width: 100%;
     justify-content: space-between;
   }
-
-  /* Ajusta a grade de anúncios para 2 colunas em vez de 3 */
   .grade-anuncios {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto auto;
   }
 }

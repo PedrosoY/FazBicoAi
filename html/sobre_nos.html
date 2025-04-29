@@ -12,7 +12,7 @@
 <body>
   <header class="cabecalho">
     <div class="cabecalho-superior">
-      <div class="logo"><img src="assets/imgs/logo.png" alt="Logo Faz um Bico Aí"></div>
+      <div class="logo"><img src="../assets/imgs/logo.png" alt="Logo Faz um Bico Aí"></div>
       <div class="info-site"><p>Faz um Bico Aí!</p></div>
     </div>
     <div class="cabecalho-inferior">
@@ -60,24 +60,24 @@
     <h2>Nosso Time</h2>
     <div class="team-members">
       <div class="member">
-        <img src="assets/imgs/team1.jpg" alt="Membro 1">
+        <img src="assets/imgs/team1.jpg" alt="Pedro Junior">
         <h3>Pedro Junior</h3>
         <p>CEO & Fundadora</p>
       </div>
       <div class="member">
-        <img src="assets/imgs/team2.jpg" alt="Membro 2">
+        <img src="assets/imgs/team2.jpg" alt="Gabriel Paulon">
         <h3>Gabriel Paulon</h3>
-        <p>Estagiario</p>
+        <p>Estagiário</p>
       </div>
       <div class="member">
-        <img src="assets/imgs/team3.jpg" alt="Membro 3">
+        <img src="assets/imgs/team3.jpg" alt="Luiz XIARINOTE">
         <h3>Luiz XIARINOTE</h3>
-        <p>Desiner</p>
+        <p>Designer</p>
       </div>
       <div class="member">
-        <img src="assets/imgs/team3.jpg" alt="Membro 3">
+        <img src="assets/imgs/team4.jpg" alt="Tesche Gustavo">
         <h3>Tesche Gustavo</h3>
-        <p>Compiuter</p>
+        <p>Computador</p>
       </div>
     </div>
   </section>
@@ -91,5 +91,30 @@
   <footer class="rodape">
     <p>&copy; 2025 – Faz um Bico Aí. Todos os direitos reservados.</p>
   </footer>
+
+  <!-- Intersection Observer -->
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const options = {
+    root: null,            // viewport
+    rootMargin: '0px',
+    threshold: 0.2         // 20% visível
+  };
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);  // dispara só uma vez
+      }
+    });
+  }, options);
+
+  // Seleciona todos os cards de diferencial e membros do time
+  document.querySelectorAll('.feature-card, .member').forEach(el => {
+    observer.observe(el);
+  });
+});
+  </script>
 </body>
 </html>
