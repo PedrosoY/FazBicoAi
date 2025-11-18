@@ -1,102 +1,351 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perfil do Profissional e Serviços - Faz um Bico Aí</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/menu_profissional.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Profissional — Faz um Bico Aí</title>
+
+  <!-- Fonte e CSS principal do site (usuário já tem esse arquivo) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/menu_principal.css">
+
+  <style>
+    /* ===== estilos específicos desta página (mantêm o padrão visual) ===== */
+    .area-principal {
+      max-width: 1200px; margin: 1.5rem auto; padding: 0 1rem;
+      display: grid; grid-template-columns: 1fr 320px; gap: 1.5rem; align-items: start;
+    }
+
+    .profile-card {
+      background:#fff; border-radius:8px; padding:1.25rem; box-shadow:0 6px 20px rgba(0,0,0,0.04);
+      display:flex; gap:1rem; align-items:flex-start; flex-wrap:wrap;
+    }
+    .profile-avatar { width:120px; height:120px; border-radius:999px; overflow:hidden; border:3px solid rgba(255,152,0,0.95); background:#f2f2f2; flex-shrink:0; }
+    .profile-avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .profile-meta { flex:1; min-width:220px; }
+    .profile-meta h1{ font-size:1.6rem; margin-bottom:.25rem; }
+    .profile-meta p{ color:#555; margin-bottom:.6rem; }
+    .profile-stats{ display:flex; gap:1rem; align-items:center; color:#555; font-size:.95rem; margin-bottom:.6rem; }
+    .profile-actions{ display:flex; gap:.6rem; flex-wrap:wrap; }
+    .btn-primary{ background:#ff9800; color:#fff; border:none; padding:.6rem .9rem; border-radius:6px; cursor:pointer; font-weight:700; }
+    .btn-outline{ background:#fff; color:#333; border:1px solid #ddd; padding:.5rem .8rem; border-radius:6px; cursor:pointer; }
+
+    .sidebar{ position:relative; top:0; display:flex; flex-direction:column; gap:1rem; }
+    .sidebar .card{ padding:1rem; border-radius:8px; background:#fff; box-shadow:0 6px 20px rgba(0,0,0,0.04); }
+    .contact-row{ display:flex; gap:.5rem; align-items:center; color:#444; }
+
+    .section-title{ font-size:1.25rem; margin:0 0 .75rem 0; color:#333; }
+    .services-wrap{ margin-top:1rem; }
+    .grade-anuncios{ gap:1rem; display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+    .grade-anuncios .card{ background:#fff; padding:.85rem; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.04); display:flex; flex-direction:column; gap:.6rem; }
+    .grade-anuncios .card img{ height:130px; object-fit:cover; border-radius:6px; }
+    .grade-anuncios .card .meta{ margin-top:auto; color:#666; font-size:.9rem; }
+
+    .paginacao{ margin:1.5rem 0; }
+
+    @media (max-width:960px){
+      .area-principal{ grid-template-columns:1fr; }
+      .profile-card{ align-items:center; text-align:center; }
+      .profile-meta{ min-width:auto; }
+      .sidebar{ order:2; }
+    }
+
+    /* ===== perfil dropdown clone (essencial) ===== */
+    .profile-menu-fixed{
+      position: fixed;
+      min-width: 200px;
+      background: #fff;
+      color: #222;
+      border-radius: 8px;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.18);
+      padding: 6px;
+      display: none;
+      z-index: 20000;
+      border: 1px solid rgba(0,0,0,0.06);
+      pointer-events: auto;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .profile-menu-fixed.open { display: block; }
+    .profile-menu-fixed .menu-item {
+      display:flex; align-items:center; gap:.6rem; padding:.6rem .9rem; border-radius:6px; cursor:pointer; color:#222; text-decoration:none;
+    }
+    .profile-menu-fixed .menu-item:hover, .profile-menu-fixed .menu-item:focus { background:#f6f6f6; outline:none; }
+    .profile-menu-fixed .menu-sep { height:1px; background:#eee; margin:6px 4px; border-radius:2px; }
+
+    /* garante que o botão fique acima de outros elementos */
+    .profile-btn { z-index: 3000; position: relative; }
+  </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="header-top">
-      <div class="header-logo">
-        <img src="../assets/imgs/logo.png" alt="Logo Faz um Bico Aí">
+  <!-- Cabeçalho (padronizado) -->
+  <header class="cabecalho">
+    <div class="cabecalho-superior">
+      <div class="logo"><img src="../assets/imgs/logo.png" alt="Logo Faz um Bico Aí"></div>
+      <div class="info-site"><p>Faz um Bico Aí!</p></div>
+
+      <!-- botão de perfil -->
+      <button id="profileBtn" class="profile-btn" aria-haspopup="true" aria-expanded="false" title="Meu Perfil">
+        <img src="../assets/imgs/indexPage/PerfilBranco.png" alt="Avatar do usuário">
+      </button>
+
+      <!-- menu original (sera clonado para fixed menu pelo JS) -->
+      <div id="profileMenu" class="profile-menu" role="menu" aria-labelledby="profileBtn">
+        <a href="perfil.html" class="menu-item" role="menuitem" tabindex="-1"><span class="icon">👤</span><span>Perfil</span></a>
+        <a href="configuracoes.html" class="menu-item" role="menuitem" tabindex="-1"><span class="icon">⚙️</span><span>Configurações</span></a>
+        <div class="menu-sep" aria-hidden="true"></div>
+        <a href="login.html" class="menu-item" role="menuitem" tabindex="-1" id="loginItem"><span class="icon">🔐</span><span>Entrar</span></a>
+        <a href="#" class="menu-item" role="menuitem" tabindex="-1" id="logoutItem"><span class="icon">🚪</span><span>Sair</span></a>
       </div>
-      <nav class="header-menu">
+    </div>
+
+    <div class="cabecalho-inferior">
+      <nav class="menu" aria-label="Menu principal">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Sobre</a></li>
-          <li><a href="#">Contato</a></li>
-          <li><a href="#">Login</a></li>
+          <li><a href="../index.html">Início</a></li>
+          <li><a href="../html/sobre_nos.html">Sobre</a></li>
+          <li><a href="../html/contato.html">Contato</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- PERFIL DO PROFISSIONAL -->
-  <section class="profile-section">
-    <div class="profile-foto">
-      <img src="assets/imgs/profile.jpg" alt="Foto do Profissional">
-    </div>
-    <div class="profile-infos">
-      <h1 class="profile-nome">Nome do Profissional</h1>
-      <p class="profile-desc">Conectando pessoas a pequenos trabalhos com qualidade e eficiência.</p>
-      <div class="profile-selos">
-        <img src="assets/imgs/selo-bico.png" alt="Selo BICO Indica" title="Selo BICO Indica">
-        <!-- Adicione outros selos, se houver -->
+  <!-- Área principal: perfil + sidebar -->
+  <main class="area-principal" role="main">
+    <div>
+      <article class="profile-card">
+        <div class="profile-avatar">
+          <img src="../assets/imgs/indexPage/AulaParticular.jpg" alt="Foto do Profissional">
+        </div>
+
+        <div class="profile-meta">
+          <h1>Pedro Junior</h1>
+          <p>Montador, professor e faz-tudo — atendimento ágil com garantia de qualidade. Atuo em São Paulo e região.</p>
+
+          <div class="profile-stats">
+            <div class="rating">⭐ 4.9</div>
+            <div class="response-time">Resposta: ~2h</div>
+            <div class="jobs-count">120 trabalhos</div>
+          </div>
+
+          <div class="profile-actions">
+            <button class="btn-primary">Contratar</button>
+            <button class="btn-outline">Mensagem</button>
+            <button class="btn-outline">Favoritar</button>
+          </div>
+        </div>
+
+        <div style="min-width:120px; display:flex; align-items:flex-start; justify-content:flex-end;">
+          <div style="text-align:right;">
+            <div style="font-weight:700; color:#333;">R$ 60 / h</div>
+            <div style="font-size:0.85rem; color:#666; margin-top:.4rem;">Disponível: Seg–Sex</div>
+          </div>
+        </div>
+      </article>
+
+      <section class="services-wrap">
+        <h2 class="section-title">Serviços oferecidos</h2>
+
+        <div class="grade-anuncios">
+          <article class="card">
+            <img src="../assets/imgs/indexPage/DigitadorDocumentos.jpg" alt="Digitação de Documentos">
+            <h3>Digitação de Documentos</h3>
+            <p class="meta">Formatação em Word e revisão básica. Entrega em 24h.</p>
+            <div class="meta">R$ 40,00</div>
+          </article>
+
+          <article class="card">
+            <img src="../assets/imgs/indexPage/MontadorMoveis.jpg" alt="Montagem de Móveis">
+            <h3>Montagem de Móveis</h3>
+            <p class="meta">Montagem de guarda-roupas, estantes e móveis sob medida. Ferramentas próprias.</p>
+            <div class="meta">R$ 80,00</div>
+          </article>
+
+          <article class="card">
+            <img src="../assets/imgs/indexPage/ServicoEntrega.jpg" alt="Serviço de Entrega">
+            <h3>Serviço de Entrega</h3>
+            <p class="meta">Coletas e entregas locais com cuidado e pontualidade.</p>
+            <div class="meta">R$ 30,00</div>
+          </article>
+        </div>
+      </section>
+
+      <div class="paginacao" aria-label="Paginação de serviços">
+        <a href="#">&laquo; Anterior</a>
+        <a href="#">1</a>
+        <a href="#" class="ativo">2</a>
+        <a href="#">3</a>
+        <a href="#">Próximo &raquo;</a>
       </div>
     </div>
-    <div class="profile-action">
-      <button class="negociacao-btn">Negociação</button>
-    </div>
-  </section>
 
-  <!-- ÁREA PRINCIPAL - Serviços Realizados -->
-  <div class="main-container">
-    <section class="cards-container">
-      <h2>Serviços Realizados</h2>
-      <div class="cards-grid">
-        <!-- Serviço 1: Digitação de Documentos -->
-        <article class="card">
-          <img src="assets/imgs/card1.jpg" alt="Digitação de Documentos">
-          <h3>Digitação de Documentos</h3>
-          <p>
-            Realizamos a digitação com rapidez e precisão, garantindo que o conteúdo original seja fielmente reproduzido. Ideal para escritórios, estudantes e profissionais que necessitam transcrever textos de forma organizada.
-          </p>
-          <span class="card-valor">R$ 40,00</span>
-        </article>
-        
-        <!-- Serviço 2: Montagem de Móveis -->
-        <article class="card">
-          <img src="assets/imgs/card2.jpg" alt="Montagem de Móveis">
-          <h3>Montagem de Móveis</h3>
-          <p>
-            Nossa equipe realiza a montagem de móveis residenciais e comerciais com segurança e eficiência. Seguimos especificações técnicas para que cada móvel seja montado conforme o projeto, garantindo a melhor funcionalidade e estética.
-          </p>
-          <span class="card-valor">R$ 80,00</span>
-        </article>
-        
-        <!-- Serviço 3: Serviço de Entrega -->
-        <article class="card">
-          <img src="assets/imgs/card3.jpg" alt="Serviço de Entrega">
-          <h3>Serviço de Entrega</h3>
-          <p>
-            Oferecemos um serviço de entrega ágil e confiável, cuidando para que seus itens cheguem com segurança e dentro do prazo estipulado. Ideal para empresas e pessoas físicas que necessitam de logística eficiente e personalizada.
-          </p>
-          <span class="card-valor">R$ 30,00</span>
-        </article>
-        
-        <!-- Adicione mais serviços conforme a demanda -->
+    <aside class="sidebar" aria-labelledby="contato-title">
+      <div class="card">
+        <h3 id="contato-title">Contato</h3>
+        <div class="contact-row"><strong>Email:</strong><span style="margin-left:.5rem;color:#555">pedro@example.com</span></div>
+        <div class="contact-row" style="margin-top:.45rem;"><strong>WhatsApp:</strong><span style="margin-left:.5rem;color:#555">(11) 9 9999-9999</span></div>
+        <div style="margin-top:.75rem;">
+          <button class="btn-primary" style="width:100%;">Solicitar Orçamento</button>
+        </div>
       </div>
-    </section>
-  </div>
 
-  <!-- PAGINAÇÃO (OPCIONAL) -->
-  <div class="paginacao">
-    <a href="#">&laquo; Anterior</a>
-    <a href="#">1</a>
-    <a href="#" class="active">2</a>
-    <a href="#">3</a>
-    <a href="#">Próximo &raquo;</a>
-  </div>
+      <div class="card">
+        <h3>Avaliações</h3>
+        <div style="margin-top:.5rem;">
+          <div style="font-weight:700;">Mariana S. <span style="float:right;">★★★★★</span></div>
+          <div style="color:#555;font-size:0.95rem;margin-top:.25rem;">Serviço impecável — chegou no horário e deixou tudo certo.</div>
+          <hr style="border:none;border-top:1px solid #f0f0f0;margin:0.6rem 0;">
+          <div style="font-weight:700;">Lucas P. <span style="float:right;">★★★★☆</span></div>
+          <div style="color:#555;font-size:0.95rem;margin-top:.25rem;">Ótimo professor, explicações claras.</div>
+        </div>
+      </div>
 
-  <!-- RODAPÉ -->
-  <footer class="footer">
-    <p>&copy; 2025 - Faz um Bico Aí. Todos os direitos reservados.</p>
+      <div class="card">
+        <h3>Informações</h3>
+        <ul style="list-style:none;margin-top:.5rem;color:#555;padding-left:0">
+          <li>⏱️ Tempo médio: 2 - 4 horas</li>
+          <li>📍 Atende: São Paulo — Vila Nova</li>
+          <li>🔒 Pagamento: no local / transferência</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="rodape">
+    <p>&copy; 2025 – Faz um Bico Aí. Todos os direitos reservados.</p>
   </footer>
 
+  <script>
+    (function () {
+      const profileBtn = document.getElementById('profileBtn');
+      const originalMenu = document.getElementById('profileMenu');
+
+      if (!profileBtn) {
+        console.warn('profileBtn não encontrado no DOM.');
+        return;
+      }
+      if (!originalMenu) {
+        console.warn('profileMenu (original) não encontrado no DOM.');
+        return;
+      }
+
+      // remove clone anterior, se existir
+      const prev = document.querySelector('.profile-menu-fixed');
+      if (prev) prev.remove();
+
+      // cria o clone fixo (para evitar clipping/overflow)
+      const fixedMenu = document.createElement('div');
+      fixedMenu.className = 'profile-menu-fixed';
+      fixedMenu.innerHTML = originalMenu.innerHTML;
+      document.body.appendChild(fixedMenu);
+
+      // torna itens do clone focáveis/tabindex=0
+      const items = Array.from(fixedMenu.querySelectorAll('.menu-item'));
+      if (items.length === 0) {
+        console.warn('Nenhum .menu-item encontrado no clone do menu.');
+      }
+      items.forEach(it => {
+        it.removeAttribute('tabindex');
+        it.tabIndex = 0;
+      });
+
+      // evita que cliques dentro do menu fechem por propagation
+      fixedMenu.addEventListener('click', (e) => e.stopPropagation());
+
+      function positionMenu() {
+        const btnRect = profileBtn.getBoundingClientRect();
+        const padding = 8;
+        // mostra temporariamente para medir
+        fixedMenu.style.display = 'block';
+        fixedMenu.style.visibility = 'hidden';
+        fixedMenu.classList.add('open');
+        const menuRect = fixedMenu.getBoundingClientRect();
+
+        let top = btnRect.bottom + padding;
+        let left = btnRect.right - menuRect.width;
+
+        if (left < 8) left = 8;
+        if (left + menuRect.width > window.innerWidth - 8) left = window.innerWidth - menuRect.width - 8;
+
+        if (top + menuRect.height > window.innerHeight - 8) {
+          top = btnRect.top - menuRect.height - padding;
+        }
+
+        fixedMenu.style.top = Math.round(top) + 'px';
+        fixedMenu.style.left = Math.round(left) + 'px';
+        fixedMenu.style.visibility = 'visible';
+      }
+
+      function openMenu() {
+        fixedMenu.classList.add('open');
+        fixedMenu.style.display = 'block';
+        profileBtn.setAttribute('aria-expanded', 'true');
+        positionMenu();
+        // foca o primeiro item para navegação via teclado
+        setTimeout(() => items[0]?.focus(), 10);
+      }
+
+      function closeMenu() {
+        fixedMenu.classList.remove('open');
+        fixedMenu.style.display = 'none';
+        profileBtn.setAttribute('aria-expanded', 'false');
+        profileBtn.focus();
+      }
+
+      function toggleMenu(e) {
+        e.stopPropagation();
+        if (fixedMenu.classList.contains('open')) closeMenu();
+        else openMenu();
+      }
+
+      profileBtn.addEventListener('click', toggleMenu);
+
+      // clique fora fecha
+      document.addEventListener('click', (e) => {
+        if (!fixedMenu.contains(e.target) && e.target !== profileBtn) {
+          if (fixedMenu.classList.contains('open')) closeMenu();
+        }
+      });
+
+      // Esc fecha
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && fixedMenu.classList.contains('open')) closeMenu();
+      });
+
+      // keyboard navigation dentro do fixedMenu
+      fixedMenu.addEventListener('keydown', (e) => {
+        const idx = items.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') { e.preventDefault(); items[(idx + 1) % items.length]?.focus(); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); items[(idx - 1 + items.length) % items.length]?.focus(); }
+        else if (e.key === 'Home') { e.preventDefault(); items[0]?.focus(); }
+        else if (e.key === 'End') { e.preventDefault(); items[items.length - 1]?.focus(); }
+        else if (e.key === 'Tab') { setTimeout(()=>{ if (!fixedMenu.contains(document.activeElement)) closeMenu(); }, 0); }
+      });
+
+      // esconde o menu original para não duplicar a view
+      originalMenu.style.display = 'none';
+
+      // reposiciona em resize/scroll se estiver aberto
+      window.addEventListener('resize', () => { if (fixedMenu.classList.contains('open')) positionMenu(); });
+      window.addEventListener('scroll', () => { if (fixedMenu.classList.contains('open')) positionMenu(); }, true);
+    })();
+
+    /* IntersectionObserver (simples): anima cabeçalho e cards ao entrar na viewport */
+    document.addEventListener('DOMContentLoaded', () => {
+      const options = { root: null, rootMargin: '0px', threshold: 0.12 };
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, options);
+
+      document.querySelectorAll('.cabecalho-superior, .cabecalho-inferior, .profile-card, .grade-anuncios .card, .rodape').forEach(el => {
+        if (el) observer.observe(el);
+      });
+    });
+  </script>
 </body>
 </html>

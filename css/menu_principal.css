@@ -60,6 +60,94 @@ a {
   font-weight: bold;
 }
 
+    /* Pequeno estilo para esconder cards filtrados */
+    .hidden { display: none !important; }
+    /* Mantém link cobrindo todo o card */
+    .grade-anuncios .card a { display:block; }
+
+    /* ====== Perfil: botão + dropdown ====== */
+    .cabecalho-superior { position: relative; display:flex; align-items:center; gap:1rem; }
+    .profile-btn {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.15);
+      background: transparent;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      text-decoration: none;
+      position: relative;
+    }
+    .profile-btn img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 999px;
+    }
+    .profile-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.25); }
+    .profile-btn:focus { outline: 3px solid #ff9800; outline-offset: 3px; }
+
+    /* dropdown */
+    .profile-menu {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 10px);
+      min-width: 190px;
+      background: #fff;
+      color: #222;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      padding: 6px;
+      display: none;
+      z-index: 1200;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .profile-menu.open { display: block; }
+
+    .profile-menu .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      color: #222;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .profile-menu .menu-item:hover,
+    .profile-menu .menu-item:focus {
+      background: #f6f6f6;
+      outline: none;
+    }
+    .profile-menu .menu-item .icon {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items:center;
+      justify-content:center;
+      opacity: 0.9;
+    }
+    .profile-menu .menu-sep {
+      height: 1px;
+      background: #eee;
+      margin: 6px 4px;
+      border-radius: 2px;
+    }
+
+    /* mobile adjustments */
+    @media (max-width: 480px) {
+      .profile-btn { width: 40px; height: 40px; border-width: 1px; }
+      .logo img { height: 44px; }
+      .profile-menu { right: 8px; left: auto; top: calc(100% + 8px); min-width: 160px; }
+    }
+
 /* ---------- FILTROS ---------- */
 .filtros {
   background: #fff;
@@ -174,11 +262,25 @@ a {
   animation-delay: 0.8s;
 }
 
+/* ---------- GRADE DE ANÚNCIOS - GRID RESPONSIVO ---------- */
+/* Grid responsivo: adapta-se à largura disponível e ao número de cards */
 .grade-anuncios {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  /* Cada card terá no mínimo 220px e crescerá para preencher o espaço.
+     auto-fit fará com que o grid "encaixe" automaticamente a quantidade
+     ideal de colunas conforme a largura disponível e o número de itens. */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  /* garante que itens com alturas diferentes comecem no topo */
+  align-items: start;
+  justify-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
+  /* pequeno padding interno para conforto visual ao centralizar */
+  padding-bottom: 0.5rem;
 }
+
+/* Cada card mantém seu fluxo; usamos flex para empurrar meta/valor para baixo */
 .grade-anuncios .card {
   opacity: 0;
   transform: translateY(30px);
@@ -186,10 +288,14 @@ a {
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 .grade-anuncios .card.visible {
   animation: fadeIn 0.6s ease forwards;
 }
+/* Preserva animações com delays sequenciais (máximo razoável) */
 .grade-anuncios .card.visible:nth-child(1) { animation-delay: 1.0s; }
 .grade-anuncios .card.visible:nth-child(2) { animation-delay: 1.2s; }
 .grade-anuncios .card.visible:nth-child(3) { animation-delay: 1.4s; }
@@ -197,35 +303,85 @@ a {
 .grade-anuncios .card.visible:nth-child(5) { animation-delay: 1.8s; }
 .grade-anuncios .card.visible:nth-child(6) { animation-delay: 2.0s; }
 
-/* Imagens com altura dinâmica */
+/* Imagens com aspecto consistente — evita que cards fiquem desalinhados por causa da imagem */
 .card img {
   width: 100%;
-  height: auto; /* altura dinâmica */
+  height: auto;
   object-fit: cover;
   border-radius: 5px;
+  /* força uma razão fixa para todas as imagens (ajuste a proporção se quiser outro corte) */
+  aspect-ratio: 16 / 9;
+}
+
+/* Meta e valor alinhados ao final do card para equilíbrio visual */
+.grade-anuncios .card .meta {
+  margin-top: auto; /* empurra meta/valor para o fim do card */
+  font-size: 0.9rem;
+  color: #555;
+}
+.grade-anuncios .card .valor {
+  font-weight: 700;
+  margin-top: 0.4rem;
 }
 
 /* ---------- PAGINAÇÃO ---------- */
+
+/* Centraliza SEMPRE toda a área da paginação */
+.paginacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 2rem 0;
+}
+
+/* Estilo de cada botão */
 .paginacao a {
   display: inline-block;
-  margin: 0 0.2rem;
   padding: 0.5rem 0.8rem;
   color: #333;
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 3px;
 
+  /* animação que você já tinha */
   opacity: 0;
   transform: scale(0.8);
+
+  /* animação suave de hover */
+  transition: 
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
 }
+
+/* Quando aparece na tela pela animação */
 .paginacao a.visible {
   animation: popIn 0.4s ease forwards;
 }
+
+/* Ordenei os delays que você já tinha */
 .paginacao a.visible:nth-child(1) { animation-delay: 2.2s; }
 .paginacao a.visible:nth-child(2) { animation-delay: 2.4s; }
 .paginacao a.visible:nth-child(3) { animation-delay: 2.6s; }
 .paginacao a.visible:nth-child(4) { animation-delay: 2.8s; }
 .paginacao a.visible:nth-child(5) { animation-delay: 3.0s; }
+
+/* Hover — fica laranja */
+.paginacao a:hover {
+  background: #ff9800;
+  color: #fff;
+  border-color: #ff9800;
+  transform: scale(1.05);
+}
+
+/* Botão da página ativa */
+.paginacao a.ativo {
+  background: #ff9800;
+  color: #fff;
+  border-color: #ff9800;
+}
 
 /* ---------- RODAPÉ ---------- */
 .rodape {
@@ -270,6 +426,12 @@ a {
 }
 
 /* ---------- RESPONSIVIDADE ---------- */
+@media (max-width: 1100px) {
+  .grade-anuncios {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+}
 @media (max-width: 768px) {
   .area-principal {
     display: flex;
@@ -289,6 +451,7 @@ a {
     justify-content: space-between;
   }
   .grade-anuncios {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.8rem;
   }
 }

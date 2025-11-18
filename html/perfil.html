@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perfil — Faz um Bico Aí</title>
+
+  <!-- Fonte e CSS principal do site (seu CSS padrão) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/menu_principal.css">
+
+  <style>
+    /* Estilos locais mínimos só para a página de perfil (mantém padrão visual) */
+    .perfil-container { max-width:1100px; margin:2rem auto; padding:0 1rem; display:grid; grid-template-columns: 1fr 320px; gap:1.5rem; }
+    .perfil-card, .side-card, .avaliacoes { background:#fff; border-radius:10px; padding:1rem; box-shadow:0 8px 24px rgba(0,0,0,.06); }
+    .perfil-top { display:flex; gap:1rem; align-items:center; }
+    .avatar-wrap { width:110px; height:110px; border-radius:999px; overflow:hidden; border:3px solid rgba(0,0,0,.06); background:#f0f0f0; }
+    .avatar-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+    .acoes-perfil { margin-left:auto; display:flex; gap:.5rem; align-items:center; }
+    .btn-small { padding:.45rem .7rem; border-radius:6px; border:none; cursor:pointer; background:#ff9800; color:#fff; font-weight:700; }
+    .btn-outline { background:#fff; color:#333; border:1px solid #ddd; padding:.45rem .7rem; border-radius:6px; cursor:pointer; }
+    .perfil-form { display:grid; gap:.8rem; margin-top:.8rem; }
+    .campo label { font-weight:700; font-size:.9rem; margin-bottom:.35rem; display:block; }
+    .campo input, .campo textarea { padding:.5rem .6rem; border:1px solid #ddd; border-radius:6px; width:100%; }
+    .chips { display:flex; gap:.4rem; flex-wrap:wrap; }
+    .chip { background:#f1f1f1; padding:.3rem .6rem; border-radius:999px; font-size:.85rem; }
+
+    /* Clone do menu fixo (evita clipping quando o header estiver dentro de containers) */
+    .profile-menu-fixed {
+      position: fixed;
+      min-width: 190px;
+      background: #fff;
+      color: #222;
+      border-radius: 8px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+      padding: 6px;
+      border: 1px solid rgba(0,0,0,0.06);
+      z-index: 99999;
+      display: none;
+    }
+    .profile-menu-fixed.open { display:block; }
+    .profile-menu-fixed .menu-item { display:flex; gap:.6rem; align-items:center; padding:.6rem .9rem; border-radius:6px; cursor:pointer; text-decoration:none; color:inherit; }
+    .profile-menu-fixed .menu-item:hover { background:#f6f6f6; }
+
+    /* pequenas melhorias visuais para as reviews */
+    .review { padding:.6rem 0; border-bottom:1px dashed #f0f0f0; }
+    .review .autor { font-weight:700; margin-bottom:.2rem; }
+
+    @media (max-width:900px) {
+      .perfil-container { grid-template-columns: 1fr; }
+      .acoes-perfil { margin-left:0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho PADRÃO (usa menu_principal.css) -->
+  <header class="cabecalho">
+    <div class="cabecalho-superior">
+      <div class="logo"><img src="../assets/imgs/logo.png" alt="Logo Faz um Bico Aí"></div>
+      <div class="info-site"><p>Faz um Bico Aí!</p></div>
+
+      <!-- botão de perfil -->
+      <button id="profileBtn" class="profile-btn" aria-haspopup="true" aria-expanded="false" title="Meu Perfil">
+        <img src="../assets/imgs/indexPage/PerfilBranco.png" alt="Avatar do usuário">
+      </button>
+
+      <!-- markup do menu original (mantido por acessibilidade / fallback; será clonado) -->
+      <div id="profileMenu" class="profile-menu" role="menu" aria-labelledby="profileBtn">
+        <a href="perfil.html" class="menu-item" role="menuitem" tabindex="-1"><span class="icon">👤</span><span>Perfil</span></a>
+        <a href="configuracoes.html" class="menu-item" role="menuitem" tabindex="-1"><span class="icon">⚙️</span><span>Configurações</span></a>
+        <div class="menu-sep" aria-hidden="true"></div>
+        <a href="login.html" class="menu-item" role="menuitem" tabindex="-1"><span class="icon">🔐</span><span>Entrar</span></a>
+        <a href="#" class="menu-item" role="menuitem" tabindex="-1"><span class="icon">🚪</span><span>Sair</span></a>
+      </div>
+    </div>
+
+    <div class="cabecalho-inferior">
+      <nav class="menu">
+        <ul>
+          <li><a href="../index.html">Início</a></li>
+          <li><a href="sobre_nos.html">Sobre</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Conteúdo do Perfil -->
+  <main class="perfil-container" role="main">
+    <section class="perfil-card" aria-labelledby="perfil-title">
+      <div class="perfil-top">
+        <div class="avatar-wrap">
+          <img id="avatarImg" src="../assets/imgs/indexPage/PerfilBranco.png" alt="Foto do usuário">
+        </div>
+
+        <div class="perfil-info">
+          <h1 id="perfil-title">Pedro Junior</h1>
+          <p class="bio" id="perfil-bio">Sou montador e professor nas horas vagas — focado em qualidade, agilidade e boa comunicação.</p>
+          <div class="chips" id="skillChips">
+            <span class="chip">Montagem</span>
+            <span class="chip">Aulas</span>
+            <span class="chip">Reparo Elétrico</span>
+          </div>
+        </div>
+
+        <div class="acoes-perfil">
+          <label for="avatarInput" class="btn-outline" style="cursor:pointer;">Trocar foto</label>
+          <input id="avatarInput" type="file" accept="image/*" style="display:none">
+          <button id="editBtn" class="btn-small">Editar</button>
+          <button id="saveBtn" class="btn-small btn-outline" style="display:none">Salvar</button>
+        </div>
+      </div>
+
+      <form id="perfilForm" class="perfil-form" onsubmit="return false;">
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <div class="campo" style="flex:1">
+            <label for="nome">Nome</label>
+            <input id="nome" type="text" value="Pedro Junior" disabled>
+          </div>
+          <div class="campo" style="width:140px;">
+            <label for="valor">Valor/hora (R$)</label>
+            <input id="valor" type="number" min="0" value="60" disabled>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="local">Local (Cidade / Bairro)</label>
+          <input id="local" type="text" value="São Paulo / Vila Nova" disabled>
+        </div>
+
+        <div class="campo">
+          <label for="bio">Sobre (bio)</label>
+          <textarea id="bio" disabled>Sou montador e professor nas horas vagas — focado em qualidade, agilidade e boa comunicação.</textarea>
+        </div>
+
+        <div class="campo">
+          <label>Skills</label>
+          <div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;">
+            <div class="chips" id="skillsView">
+              <span class="chip">Montagem</span>
+              <span class="chip">Aulas</span>
+              <span class="chip">Reparo Elétrico</span>
+            </div>
+            <input id="skillsInput" type="text" placeholder="Adicionar skill e pressionar Enter" style="display:none;padding:.4rem;border:1px solid #ddd;border-radius:6px;">
+          </div>
+        </div>
+
+        <div style="display:flex;gap:.6rem;align-items:center;margin-top:.4rem;">
+          <button id="saveProfile" class="btn-small" style="display:none">Salvar Perfil</button>
+          <button id="cancelEdit" class="btn-outline" style="display:none">Cancelar</button>
+        </div>
+      </form>
+
+      <div style="margin-top:1rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+        <div><strong>Disponibilidade</strong><div style="color:#555">Seg — Sex • 08:00 — 18:00</div></div>
+        <div><strong>Tempo de resposta</strong><div style="color:#555">Geralmente em até 2 horas</div></div>
+      </div>
+    </section>
+
+    <aside class="side-card" aria-labelledby="stats-title">
+      <h3 id="stats-title">Estatísticas</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid #f0f0f0;">
+        <div><div style="font-weight:700;">4.9</div><div style="font-size:.85rem;color:#777;">Avaliação média</div></div>
+        <div class="stars" aria-hidden="true">★★★★★</div>
+      </div>
+      <div style="margin-top:.6rem;">
+        <strong>Contatos</strong>
+        <div style="font-size:.9rem;color:#555;margin-top:.4rem;">
+          <div>Email: pedro@example.com</div>
+          <div>WhatsApp: (11) 9 9999-9999</div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="avaliacoes" style="grid-column:1 / -1;">
+      <h3>Avaliações recentes</h3>
+      <div class="review"><div class="autor">Mariana Santos <span class="stars">★★★★★</span></div><div style="color:#555;margin-top:.25rem;">Excelente serviço de montagem.</div></div>
+      <div class="review"><div class="autor">Lucas Pereira <span class="stars">★★★★☆</span></div><div style="color:#555;margin-top:.25rem;">Aula ótima.</div></div>
+      <div class="review"><div class="autor">Camila Rocha <span class="stars">★★★★★</span></div><div style="color:#555;margin-top:.25rem;">Resolveu um problema elétrico complicado.</div></div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>&copy; 2025 – Faz um Bico Aí. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // ===== FIX: garantir cabeçalho visível =====
+    // O CSS padrão inicializa header com opacity:0 esperando .visible.
+    // Garantimos que ele apareça imediatamente nas páginas sem observer.
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.cabecalho-superior, .cabecalho-inferior').forEach(el => el.classList.add('visible'));
+    });
+
+    /**********************
+     * MENU DO PERFIL (robusto)
+     * - clona o menu para body (evita overflow/clipping)
+     * - posiciona fixed sob o botão
+     * - acessibilidade (Esc, arrow nav, click fora)
+     **********************/
+    (function () {
+      const profileBtn = document.getElementById('profileBtn');
+      const originalMenu = document.getElementById('profileMenu');
+
+      // cria clone fixo e anexa no body
+      const fixedMenu = document.createElement('div');
+      fixedMenu.className = 'profile-menu-fixed';
+      fixedMenu.innerHTML = originalMenu.innerHTML;
+      document.body.appendChild(fixedMenu);
+
+      const items = Array.from(fixedMenu.querySelectorAll('.menu-item'));
+
+      function positionMenu() {
+        const btnRect = profileBtn.getBoundingClientRect();
+        const padding = 8;
+        fixedMenu.style.visibility = 'hidden';
+        fixedMenu.classList.add('open'); // abre temporariamente para medir
+        const menuRect = fixedMenu.getBoundingClientRect();
+        let top = btnRect.bottom + padding;
+        let left = btnRect.right - menuRect.width;
+        if (left < 8) left = 8;
+        if (left + menuRect.width > window.innerWidth - 8) left = window.innerWidth - menuRect.width - 8;
+        if (top + menuRect.height > window.innerHeight - 8) {
+          top = btnRect.top - menuRect.height - padding;
+        }
+        fixedMenu.style.top = Math.round(top) + 'px';
+        fixedMenu.style.left = Math.round(left) + 'px';
+        fixedMenu.style.visibility = 'visible';
+      }
+
+      function openMenu() {
+        fixedMenu.classList.add('open');
+        profileBtn.setAttribute('aria-expanded', 'true');
+        positionMenu();
+        setTimeout(() => items[0]?.focus(), 10);
+      }
+      function closeMenu() {
+        fixedMenu.classList.remove('open');
+        profileBtn.setAttribute('aria-expanded', 'false');
+        profileBtn.focus();
+      }
+      function toggleMenu(e) {
+        e.stopPropagation();
+        if (fixedMenu.classList.contains('open')) closeMenu();
+        else openMenu();
+      }
+
+      profileBtn.addEventListener('click', (e) => toggleMenu(e));
+      document.addEventListener('click', (e) => {
+        if (!fixedMenu.contains(e.target) && e.target !== profileBtn) {
+          if (fixedMenu.classList.contains('open')) closeMenu();
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && fixedMenu.classList.contains('open')) closeMenu();
+      });
+      fixedMenu.addEventListener('keydown', (e) => {
+        const idx = items.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') { e.preventDefault(); items[(idx+1)%items.length].focus(); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); items[(idx-1+items.length)%items.length].focus(); }
+        else if (e.key === 'Home') { e.preventDefault(); items[0].focus(); }
+        else if (e.key === 'End') { e.preventDefault(); items[items.length-1].focus(); }
+        else if (e.key === 'Tab') { setTimeout(()=>{ if (!fixedMenu.contains(document.activeElement)) closeMenu(); }, 0); }
+      });
+
+      // escondemos o menu original (fallback) para evitar duplicates visuais
+      originalMenu.style.display = 'none';
+
+      // reposition on resize/scroll if open
+      window.addEventListener('resize', () => { if (fixedMenu.classList.contains('open')) positionMenu(); });
+      window.addEventListener('scroll', () => { if (fixedMenu.classList.contains('open')) positionMenu(); }, true);
+    })();
+
+    /**********************
+     * Perfil: edição mínima, avatar preview, skills, localStorage (protótipo)
+     **********************/
+    (function () {
+      const editBtn = document.getElementById('editBtn');
+      const saveBtn = document.getElementById('saveBtn');
+      const saveProfile = document.getElementById('saveProfile');
+      const cancelEdit = document.getElementById('cancelEdit');
+      const nome = document.getElementById('nome');
+      const valor = document.getElementById('valor');
+      const localField = document.getElementById('local');
+      const bio = document.getElementById('bio');
+      const perfilTitle = document.getElementById('perfil-title');
+      const perfilBio = document.getElementById('perfil-bio');
+      const avatarInput = document.getElementById('avatarInput');
+      const avatarImg = document.getElementById('avatarImg');
+      const skillsView = document.getElementById('skillsView');
+      const skillsInput = document.getElementById('skillsInput');
+
+      const saved = JSON.parse(localStorage.getItem('perfil_sample') || "{}");
+      if (saved.name) { nome.value = saved.name; perfilTitle.textContent = saved.name; }
+      if (saved.bio) { bio.value = saved.bio; perfilBio.textContent = saved.bio; }
+      if (saved.local) localField.value = saved.local;
+      if (saved.valor) valor.value = saved.valor;
+      if (saved.avatar) avatarImg.src = saved.avatar;
+      if (saved.skills && Array.isArray(saved.skills)) {
+        skillsView.innerHTML = saved.skills.map(s => `<span class="chip">${escapeHtml(s)}</span>`).join('');
+      }
+
+      function enterEditMode() {
+        nome.disabled = false; valor.disabled = false; localField.disabled = false; bio.disabled = false;
+        skillsInput.style.display = 'inline-block';
+        saveBtn.style.display = 'inline-block'; saveProfile.style.display='inline-block'; cancelEdit.style.display='inline-block';
+        editBtn.style.display = 'none';
+      }
+      function exitEditMode(discard=false) {
+        nome.disabled = true; valor.disabled = true; localField.disabled = true; bio.disabled = true;
+        skillsInput.style.display = 'none'; saveBtn.style.display='none'; saveProfile.style.display='none'; cancelEdit.style.display='none';
+        editBtn.style.display = 'inline-block';
+        if (!discard) { perfilTitle.textContent = nome.value; perfilBio.textContent = bio.value; }
+        else {
+          const s = JSON.parse(localStorage.getItem('perfil_sample') || "{}");
+          if (s.name) { nome.value = s.name; perfilTitle.textContent = s.name; }
+          if (s.bio) { bio.value = s.bio; perfilBio.textContent = s.bio; }
+        }
+      }
+
+      editBtn.addEventListener('click', enterEditMode);
+      cancelEdit.addEventListener('click', () => exitEditMode(true));
+      avatarInput && avatarInput.addEventListener('change', (e) => {
+        const file = e.target.files[0]; if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => avatarImg.src = reader.result;
+        reader.readAsDataURL(file);
+      });
+
+      skillsInput && skillsInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); const v = skillsInput.value.trim(); if (!v) return; const chip = document.createElement('span'); chip.className='chip'; chip.textContent = v; skillsView.appendChild(chip); skillsInput.value=''; }
+      });
+
+      saveProfile && saveProfile.addEventListener('click', () => {
+        const data = { name: nome.value.trim(), bio: bio.value.trim(), local: localField.value.trim(), valor: valor.value, avatar: avatarImg.src, skills: Array.from(skillsView.querySelectorAll('.chip')).map(n => n.textContent) };
+        localStorage.setItem('perfil_sample', JSON.stringify(data));
+        exitEditMode(false);
+        alert('Perfil salvo localmente (protótipo).');
+      });
+
+      function escapeHtml(str) { return String(str).replace(/[&<>"']/g, (m)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+      exitEditMode(false);
+    })();
+  </script>
+</body>
+</html>

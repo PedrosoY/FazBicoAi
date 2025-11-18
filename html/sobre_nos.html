@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Faz um Bico Aí - Sobre</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-  <!-- Font Awesome para ícones -->
+  <!-- Font Awesome para ícones (substitua SEU_KIT_ID) -->
   <script src="https://kit.fontawesome.com/SEU_KIT_ID.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../css/sobre_nos.css">
 </head>
@@ -14,9 +14,36 @@
     <div class="cabecalho-superior">
       <div class="logo"><img src="../assets/imgs/logo.png" alt="Logo Faz um Bico Aí"></div>
       <div class="info-site"><p>Faz um Bico Aí!</p></div>
+
+      <!-- BOTÃO DE PERFIL (canto superior direito) -->
+      <button id="profileBtn" class="profile-btn" aria-haspopup="true" aria-expanded="false" title="Meu Perfil">
+        <img src="../assets/imgs/indexPage/PerfilBranco.png" alt="Avatar do usuário">
+      </button>
+
+      <!-- Dropdown do perfil -->
+      <div id="profileMenu" class="profile-menu" role="menu" aria-labelledby="profileBtn">
+        <a href="perfil.html" class="menu-item" role="menuitem" tabindex="-1">
+          <span class="icon">👤</span>
+          <span>Perfil</span>
+        </a>
+        <a href="configuracoes.html" class="menu-item" role="menuitem" tabindex="-1">
+          <span class="icon">⚙️</span>
+          <span>Configurações</span>
+        </a>
+        <div class="menu-sep" aria-hidden="true"></div>
+        <a href="login.html" class="menu-item" role="menuitem" tabindex="-1" id="loginItem">
+          <span class="icon">🔐</span>
+          <span>Entrar</span>
+        </a>
+        <a href="#" class="menu-item" role="menuitem" tabindex="-1" id="logoutItem">
+          <span class="icon">🚪</span>
+          <span>Sair</span>
+        </a>
+      </div>
     </div>
+
     <div class="cabecalho-inferior">
-      <nav class="menu">
+      <nav class="menu" aria-label="Menu principal">
         <ul>
           <li><a href="../index.html">Início</a></li>
           <li><a href="sobre_nos.html" class="ativo">Sobre</a></li>
@@ -38,17 +65,17 @@
     <h2>Nossos Diferenciais</h2>
     <div class="feature-grid">
       <div class="feature-card">
-        <i class="fas fa-bolt"></i>
+        <i class="fas fa-bolt" aria-hidden="true"></i>
         <h3>Rapidez</h3>
         <p>Processo ágil do cadastro até a contratação.</p>
       </div>
       <div class="feature-card">
-        <i class="fas fa-handshake"></i>
+        <i class="fas fa-handshake" aria-hidden="true"></i>
         <h3>Confiabilidade</h3>
         <p>Avaliações reais e sistema de feedback.</p>
       </div>
       <div class="feature-card">
-        <i class="fas fa-wallet"></i>
+        <i class="fas fa-wallet" aria-hidden="true"></i>
         <h3>Transparência</h3>
         <p>Preços claros e pagamento seguro.</p>
       </div>
@@ -60,24 +87,24 @@
     <h2>Nosso Time</h2>
     <div class="team-members">
       <div class="member">
-        <img src="assets/imgs/team1.jpg" alt="Pedro Junior">
+        <img src="../assets/imgs/Profiles/Pedra.jpg" alt="Pedro Junior">
         <h3>Pedro Junior</h3>
-        <p>CEO & Fundadora</p>
+        <p>CEO & Fundador</p>
       </div>
       <div class="member">
-        <img src="assets/imgs/team2.jpg" alt="Gabriel Paulon">
+        <img src="../assets/imgs/Profiles/Gaybriel.jpg" alt="Gabriel Paulon">
         <h3>Gabriel Paulon</h3>
         <p>Estagiário</p>
       </div>
       <div class="member">
-        <img src="assets/imgs/team3.jpg" alt="Luiz XIARINOTE">
-        <h3>Luiz XIARINOTE</h3>
+        <img src="../assets/imgs/Profiles/Luiz.jpg" alt="Luiz Xiarinote">
+        <h3>Luiz Xiarinote</h3>
         <p>Designer</p>
       </div>
       <div class="member">
-        <img src="assets/imgs/team4.jpg" alt="Tesche Gustavo">
+        <img src="../assets/imgs/Profiles/Texe.jpg" alt="Tesche Gustavo">
         <h3>Tesche Gustavo</h3>
-        <p>Computador</p>
+        <p>Desenvolvedor</p>
       </div>
     </div>
   </section>
@@ -92,29 +119,66 @@
     <p>&copy; 2025 – Faz um Bico Aí. Todos os direitos reservados.</p>
   </footer>
 
-  <!-- Intersection Observer -->
+  <!-- Scripts: Profile dropdown + Intersection Observer -->
   <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const options = {
-    root: null,            // viewport
-    rootMargin: '0px',
-    threshold: 0.2         // 20% visível
-  };
+    // Dropdown perfil: toggle, close on outside, Esc, keyboard navigation
+    (function() {
+      const btn = document.getElementById('profileBtn');
+      const menu = document.getElementById('profileMenu');
+      const menuItems = Array.from(menu.querySelectorAll('.menu-item'));
 
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        obs.unobserve(entry.target);  // dispara só uma vez
+      function openMenu() {
+        menu.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        setTimeout(() => menuItems[0]?.focus(), 0);
       }
-    });
-  }, options);
+      function closeMenu() {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+      function toggleMenu(e) {
+        e.stopPropagation();
+        if (menu.classList.contains('open')) closeMenu();
+        else openMenu();
+      }
 
-  // Seleciona todos os cards de diferencial e membros do time
-  document.querySelectorAll('.feature-card, .member').forEach(el => {
-    observer.observe(el);
-  });
-});
+      btn.addEventListener('click', toggleMenu);
+
+      document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && e.target !== btn) {
+          if (menu.classList.contains('open')) closeMenu();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu();
+      });
+
+      menu.addEventListener('keydown', (e) => {
+        const idx = menuItems.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') { e.preventDefault(); menuItems[(idx + 1) % menuItems.length].focus(); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); menuItems[(idx - 1 + menuItems.length) % menuItems.length].focus(); }
+        else if (e.key === 'Home') { e.preventDefault(); menuItems[0].focus(); }
+        else if (e.key === 'End') { e.preventDefault(); menuItems[menuItems.length - 1].focus(); }
+      });
+    })();
+
+    // IntersectionObserver para animações (inclui cabeçalho e cards)
+    document.addEventListener('DOMContentLoaded', () => {
+      const options = { root: null, rootMargin: '0px', threshold: 0.15 };
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, options);
+
+      // Observe header parts, feature-cards and members for animation
+      document.querySelectorAll('.cabecalho-superior, .cabecalho-inferior, .feature-card, .member, .sobre-hero, .cta, .rodape').forEach(el => observer.observe(el));
+    });
   </script>
 </body>
 </html>

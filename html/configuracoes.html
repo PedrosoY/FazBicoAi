@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Configurações — Faz um Bico Aí</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ================= RESET / BASE ================= */
+    :root{
+      --bg:#f5f5f5;
+      --card:#ffffff;
+      --muted:#666;
+      --accent:#ff9800;
+      --accent-dark:#e68a00;
+      --border: #e6e6e6;
+      --danger:#d9534f;
+      --radius:10px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family: 'Roboto', sans-serif}
+    body{background:var(--bg);color:#222;line-height:1.5;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+
+    /* ========== CABEÇALHO ========== */
+    header.cabecalho{
+      background:#000;color:#fff;padding:14px 20px;display:flex;align-items:center;gap:16px;
+    }
+    .logo img{height:42px}
+    .site-title{font-weight:700;font-size:1.05rem;margin-left:6px}
+    .spacer{flex:1}
+    .profile-short{
+      width:40px;height:40px;border-radius:999px;overflow:hidden;border:2px solid rgba(255,255,255,0.12);
+      display:inline-block;cursor:pointer;
+    }
+    .profile-short img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* ========== CONTAINER PRINCIPAL ========== */
+    .container{
+      max-width:1100px;margin:28px auto;padding:0 18px;
+      display:grid;grid-template-columns: 280px 1fr; gap:20px;
+    }
+
+    /* ========== SIDEBAR ========== */
+    .sidebar{
+      background:var(--card);border-radius:var(--radius);padding:16px;border:1px solid var(--border);
+      box-shadow:0 6px 18px rgba(0,0,0,0.04);
+    }
+    .sidebar h3{font-size:0.95rem;margin-bottom:10px}
+    .nav-list{display:flex;flex-direction:column;gap:6px}
+    .nav-list a{
+      padding:10px;border-radius:8px;color:#222;display:flex;gap:10px;align-items:center;border:1px solid transparent;
+    }
+    .nav-list a.active{background:#fff7ef;border-color:rgba(255,152,0,0.12);box-shadow:0 4px 10px rgba(255,152,0,0.06)}
+    .nav-list a:hover{background:#fafafa}
+
+    /* ========== MAIN / FORM ========== */
+    .main{
+      background:var(--card);border-radius:var(--radius);padding:18px;border:1px solid var(--border);
+      box-shadow:0 6px 18px rgba(0,0,0,0.04);
+    }
+    .main h1{font-size:1.25rem;margin-bottom:8px}
+    .lead{color:var(--muted);font-size:0.95rem;margin-bottom:18px}
+
+    form .section{
+      margin-bottom:18px;
+      padding:12px;border-radius:8px;border:1px solid #f0f0f0;background:linear-gradient(#fff,#fff);
+    }
+    .section h2{font-size:1rem;margin-bottom:10px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+    label{font-size:0.88rem;color:#333}
+    input[type="text"], input[type="email"], input[type="password"], select, textarea{
+      padding:10px;border:1px solid var(--border);border-radius:8px;background:#fff;font-size:0.95rem;
+    }
+    textarea{min-height:100px;resize:vertical;padding-top:10px}
+
+    /* avatar upload */
+    .avatar-row{display:flex;gap:12px;align-items:center}
+    .avatar-preview{
+      width:84px;height:84px;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#fafafa;
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--muted)
+    }
+    .avatar-actions{display:flex;flex-direction:column;gap:8px}
+    .btn{display:inline-block;padding:9px 12px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer}
+    .btn.secondary{background:#fff;color:#333;border:1px solid var(--border)}
+    .btn.ghost{background:transparent;color:var(--accent);border:1px dashed rgba(0,0,0,0.06)}
+    .btn:active{transform:translateY(1px)}
+
+    /* toggles */
+    .toggle{
+      display:inline-flex;align-items:center;gap:10px;
+    }
+    .toggle input{display:none}
+    .switch{
+      width:44px;height:26px;border-radius:999px;background:#e9e9e9;position:relative;transition:background .18s;
+      border:1px solid rgba(0,0,0,0.04);
+    }
+    .knob{position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:white;box-shadow:0 4px 8px rgba(0,0,0,0.06);transition:left .18s, transform .12s}
+    input:checked + .switch { background:var(--accent) }
+    input:checked + .switch .knob { left:21px }
+
+    /* actions footer */
+    .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
+    .note{color:var(--muted);font-size:0.9rem;margin-top:6px}
+
+    /* small helpers */
+    .muted{color:var(--muted);font-size:0.9rem}
+    .row{display:flex;gap:12px;align-items:center}
+    .danger{color:var(--danger)}
+
+    /* toast */
+    .toast{
+      position:fixed;right:18px;bottom:18px;background:#111;color:#fff;padding:12px 14px;border-radius:8px;opacity:0;transform:translateY(8px);
+      transition:opacity .18s, transform .18s;z-index:9999;
+    }
+    .toast.show{opacity:1;transform:translateY(0)}
+
+    /* responsive */
+    @media (max-width:900px){
+      .container{grid-template-columns:1fr; padding:18px}
+      .sidebar{order:2}
+      .main{order:1}
+      .grid-2{grid-template-columns:1fr}
+      .avatar-row{flex-direction:row}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- header semelhante ao site -->
+  <header class="cabecalho" role="banner">
+    <div class="logo">
+      <img src="../assets/imgs/logo.png" alt="Faz um Bico Aí">
+    </div>
+    <div class="site-title">Faz um Bico Aí</div>
+    <div class="spacer" aria-hidden="true"></div>
+  </header>
+
+  <main class="container" role="main">
+    <!-- sidebar com navegação das configurações -->
+    <aside class="sidebar" aria-label="Seções de configurações">
+      <h3>Configurações</h3>
+      <nav class="nav-list">
+        <a href="#conta" class="active">Conta</a>
+        <a href="#seguranca">Segurança</a>
+        <a href="#notificacoes">Notificações</a>
+        <a href="#privacidade">Privacidade</a>
+        <a href="#preferencias">Preferências</a>
+      </nav>
+      <div style="height:10px"></div>
+      <p class="muted" style="font-size:0.9rem">Gerencie suas informações pessoais, segurança e preferências do aplicativo.</p>
+    </aside>
+
+    <!-- area principal: formulário -->
+    <section class="main" aria-labelledby="pageTitle">
+      <h1 id="pageTitle">Configurações da Conta</h1>
+      <p class="lead">Ajuste suas informações, preferências e notificações. Suas alterações são aplicadas localmente neste protótipo.</p>
+
+      <form id="settingsForm" novalidate>
+        <!-- Conta -->
+        <div id="conta" class="section" aria-labelledby="contaTitle">
+          <h2 id="contaTitle">Dados da Conta</h2>
+
+          <div class="grid-2">
+            <div>
+              <div class="field">
+                <label for="nome">Nome completo</label>
+                <input id="nome" name="nome" type="text" placeholder="Seu nome completo" value="João Silva">
+              </div>
+
+              <div class="field">
+                <label for="email">E-mail</label>
+                <input id="email" name="email" type="email" placeholder="seu@exemplo.com" value="joao@example.com">
+                <div class="note">E-mail utilizado para notificações e recuperação de senha.</div>
+              </div>
+            </div>
+
+            <div>
+              <div class="field">
+                <label>Avatar</label>
+                <div class="avatar-row">
+                  <div class="avatar-preview" id="avatarPreview">JS
+                    <!-- se imagem existisse, seria substituída -->
+                  </div>
+                  <div class="avatar-actions">
+                    <input id="avatarFile" type="file" accept="image/*" style="display:none">
+                    <div style="display:flex;gap:8px">
+                      <button type="button" class="btn" id="btnUpload">Carregar</button>
+                      <button type="button" class="btn secondary" id="btnRemove">Remover</button>
+                    </div>
+                    <div class="muted" style="font-size:0.85rem">PNG/JPG até 2MB.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="bio">Biografia curta</label>
+                <textarea id="bio" name="bio" placeholder="Escreva algo sobre você...">Sou montador e estudante de TI.</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Segurança -->
+        <div id="seguranca" class="section" aria-labelledby="segurancaTitle">
+          <h2 id="segurancaTitle">Segurança</h2>
+          <div class="field">
+            <label for="senha">Alterar senha (espaço vazio = sem alteração)</label>
+            <input id="senha" name="senha" type="password" placeholder="Nova senha">
+          </div>
+          <div class="field">
+            <label for="senhaConf">Confirmar nova senha</label>
+            <input id="senhaConf" name="senhaConf" type="password" placeholder="Confirme a nova senha">
+          </div>
+          <div class="field">
+            <label class="toggle" for="twofa">
+              <input id="twofa" type="checkbox">
+              <span class="switch" aria-hidden="true"><span class="knob"></span></span>
+              <span>Ativar autenticação em dois fatores (2FA)</span>
+            </label>
+            <div class="muted">Recomendado — adiciona uma camada extra de proteção à sua conta.</div>
+          </div>
+        </div>
+
+        <!-- Notificações -->
+        <div id="notificacoes" class="section" aria-labelledby="notificacoesTitle">
+          <h2 id="notificacoesTitle">Notificações</h2>
+
+          <div class="field">
+            <label>Notificações por e-mail</label>
+            <div class="row">
+              <label class="toggle" for="emailNovidades">
+                <input id="emailNovidades" type="checkbox" checked>
+                <span class="switch" aria-hidden="true"><span class="knob"></span></span>
+                <span>Novidades e promoções</span>
+              </label>
+            </div>
+            <div class="row" style="margin-top:8px">
+              <label class="toggle" for="emailOfertas">
+                <input id="emailOfertas" type="checkbox">
+                <span class="switch" aria-hidden="true"><span class="knob"></span></span>
+                <span>Ofertas locais</span>
+              </label>
+            </div>
+            <div class="muted" style="margin-top:8px">Você pode desativar facilmente qualquer tipo de notificação.</div>
+          </div>
+        </div>
+
+        <!-- Privacidade -->
+        <div id="privacidade" class="section" aria-labelledby="privacidadeTitle">
+          <h2 id="privacidadeTitle">Privacidade</h2>
+          <div class="field">
+            <label for="visibilidade">Visibilidade do perfil</label>
+            <select id="visibilidade" name="visibilidade" aria-describedby="visDesc">
+              <option value="publico">Público — qualquer um pode ver</option>
+              <option value="somente_empresas">Somente contratantes</option>
+              <option value="privado">Privado — somente eu</option>
+            </select>
+            <div id="visDesc" class="muted">Controle quem pode ver seu perfil e avaliações.</div>
+          </div>
+          <div class="field">
+            <label class="toggle" for="compartDados">
+              <input id="compartDados" type="checkbox">
+              <span class="switch" aria-hidden="true"><span class="knob"></span></span>
+              <span>Permitir análise anônima de uso</span>
+            </label>
+            <div class="muted">Ajuda a melhorar o produto — dados agregados e anônimos.</div>
+          </div>
+        </div>
+
+        <!-- Preferências / Aparência -->
+        <div id="preferencias" class="section" aria-labelledby="prefTitle">
+          <h2 id="prefTitle">Preferências</h2>
+          <div class="field">
+            <label for="lingua">Idioma</label>
+            <select id="lingua" name="lingua">
+              <option value="pt-BR">Português (Brasil)</option>
+              <option value="en-US">English (US)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="tema">Tema</label>
+            <select id="tema" name="tema">
+              <option value="auto">Automático (sistema)</option>
+              <option value="claro">Claro</option>
+              <option value="escuro">Escuro</option>
+            </select>
+            <div class="muted">Tema é aplicado localmente (protótipo).</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn secondary" id="btnCancel">Cancelar</button>
+          <button type="submit" class="btn" id="btnSave">Salvar alterações</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">Salvo com sucesso</div>
+
+  <script>
+    // Avatar preview logic (front-end apenas)
+    (function(){
+      const avatarFile = document.getElementById('avatarFile');
+      const btnUpload = document.getElementById('btnUpload');
+      const btnRemove = document.getElementById('btnRemove');
+      const preview = document.getElementById('avatarPreview');
+
+      btnUpload.addEventListener('click', () => avatarFile.click());
+      avatarFile.addEventListener('change', (e) => {
+        const f = e.target.files[0];
+        if(!f) return;
+        if(f.size > 2_200_000){ alert('Arquivo maior que 2MB. Escolha outro.'); avatarFile.value = ''; return; }
+        const reader = new FileReader();
+        reader.onload = () => {
+          preview.innerHTML = '';
+          const img = document.createElement('img');
+          img.src = reader.result;
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.objectFit = 'cover';
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(f);
+      });
+
+      btnRemove.addEventListener('click', () => {
+        avatarFile.value = '';
+        preview.innerHTML = 'JS';
+      });
+    })();
+
+    // Form submit (simples validação + toast)
+    (function(){
+      const form = document.getElementById('settingsForm');
+      const toast = document.getElementById('toast');
+
+      function showToast(msg='Salvo com sucesso') {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(()=> toast.classList.remove('show'), 2500);
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const senha = document.getElementById('senha').value;
+        const senhaConf = document.getElementById('senhaConf').value;
+        if(senha || senhaConf){
+          if(senha.length < 6){ alert('Senha deve ter no mínimo 6 caracteres.'); return; }
+          if(senha !== senhaConf){ alert('Confirmação de senha não confere.'); return; }
+        }
+        // Aqui você chamaria sua API (fetch) para salvar os dados.
+        // Ex.: fetch('/api/user/settings', {method:'POST', body: new FormData(form)})
+        showToast();
+      });
+
+      // Cancel button
+      document.getElementById('btnCancel').addEventListener('click', ()=> {
+        if(confirm('Descartar alterações?')) window.history.back();
+      });
+    })();
+
+    // Smooth anchor nav from sidebar
+    (function(){
+      document.querySelectorAll('.nav-list a').forEach(a=>{
+        a.addEventListener('click', (ev)=>{
+          ev.preventDefault();
+          document.querySelectorAll('.nav-list a').forEach(x=>x.classList.remove('active'));
+          a.classList.add('active');
+          const id = a.getAttribute('href').slice(1);
+          const el = document.getElementById(id);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

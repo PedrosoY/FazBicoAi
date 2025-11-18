@@ -8,6 +8,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
   <!-- Ajuste o caminho conforme sua estrutura de pastas -->
   <link rel="stylesheet" href="css/menu_principal.css">
+  <style>
+    /* Pequeno complemento para garantir comportamento estável do dropdown quando movido para body */
+    .profile-menu-fixed {
+      position: fixed;
+      min-width: 200px;
+      background: #fff;
+      color: #222;
+      border-radius: 8px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+      padding: 6px;
+      border: 1px solid rgba(0,0,0,0.06);
+      z-index: 99999;
+      display: none;
+    }
+    .profile-menu-fixed.open { display: block; }
+    .profile-menu-fixed .menu-item {
+      display:flex; gap:.6rem; align-items:center;
+      padding:.6rem .9rem; border-radius:6px; cursor:pointer;
+      font-size:.95rem; background:transparent; color:inherit;
+      text-decoration:none;
+    }
+    .profile-menu-fixed .menu-item:hover,
+    .profile-menu-fixed .menu-item:focus { background:#f6f6f6; outline:none; }
+    .profile-menu-fixed .menu-sep { height:1px; background:#eee; margin:6px 4px; border-radius:2px; }
+  </style>
 </head>
 
 <body>
@@ -17,12 +42,39 @@
     <!-- Linha superior: Logo e Nome do Site -->
     <div class="cabecalho-superior">
       <div class="logo">
-        <img src="../assets/imgs/logo.png" alt="Logo do Faz um Bico Aí">
+        <img src="assets/imgs/logo.png" alt="Logo do Faz um Bico Aí">
       </div>
       <div class="info-site">
         <p>Faz um Bico Aí!</p>
       </div>
+
+      <!-- BOTÃO DE PERFIL (canto superior direito) -->
+      <button id="profileBtn" class="profile-btn" aria-haspopup="true" aria-expanded="false" title="Meu Perfil">
+        <img src="assets/imgs/indexPage/PerfilBranco.png" alt="Avatar do usuário">
+      </button>
+
+      <!-- Dropdown do perfil (original no DOM por compatibilidade, será movido para <body> pelo JS) -->
+      <div id="profileMenu" class="profile-menu" role="menu" aria-labelledby="profileBtn">
+        <a href="html/perfil.html" class="menu-item" role="menuitem" tabindex="-1">
+          <span class="icon">👤</span>
+          <span>Perfil</span>
+        </a>
+        <a href="html/configuracoes.html" class="menu-item" role="menuitem" tabindex="-1">
+          <span class="icon">⚙️</span>
+          <span>Configurações</span>
+        </a>
+        <div class="menu-sep" aria-hidden="true"></div>
+        <a href="html/login.html" class="menu-item" role="menuitem" tabindex="-1" id="loginItem">
+          <span class="icon">🔐</span>
+          <span>Entrar</span>
+        </a>
+        <a href="#" class="menu-item" role="menuitem" tabindex="-1" id="logoutItem">
+          <span class="icon">🚪</span>
+          <span>Sair</span>
+        </a>
+      </div>
     </div>
+
     <!-- Linha inferior: Menu -->
     <div class="cabecalho-inferior">
       <nav class="menu">
@@ -41,19 +93,22 @@
     <!-- Coluna Esquerda: Cards de Destaque (empilhados verticalmente) -->
     <section class="destaques">
       <article class="card">
-        <img src="../assets/imgs/destaque1.jpg" alt="Destaque 1">
-        <h3>Destaque 1</h3>
-        <p>Descrição breve do destaque 1.</p>
+        <img src="assets/imgs/indexPage/EntregaInstalacaoImoveis.jpg" alt="Montagem Rápida">
+        <h3>Montagem Rápida</h3>
+        <p>Montadores experientes para móveis rápidos e complexos: montagem de guarda-roupas, camas e estantes. Atendimento com ferramentas próprias e garantia de reaparecimento em caso de erro.</p>
+        <div class="meta">⏱️ 2 - 4 horas • ⭐ 4.9 • R$ 40–120</div>
       </article>
       <article class="card">
-        <img src="../assets/imgs/destaque2.jpg" alt="Destaque 2">
-        <h3>Destaque 2</h3>
-        <p>Descrição breve do destaque 2.</p>
+        <img src="assets/imgs/indexPage/Apartamento.jpg" alt="Limpeza Profunda">
+        <h3>Limpeza Profunda Residencial</h3>
+        <p>Serviço de limpeza completa: remoção de sujeira pesada, higienização de cozinhas e banheiros, organização por cômodo e fornecimento de materiais caso solicitado.</p>
+        <div class="meta">⏱️ 3 - 6 horas • ⭐ 4.8 • R$ 60–200</div>
       </article>
       <article class="card">
-        <img src="../assets/imgs/destaque3.jpg" alt="Destaque 3">
-        <h3>Destaque 3</h3>
-        <p>Descrição breve do destaque 3.</p>
+        <img src="assets/imgs/indexPage/AulaParticular.jpg" alt="Aulas Particulares">
+        <h3>Aulas Particulares</h3>
+        <p>Professores particulares em várias disciplinas — matemática, física, inglês e reforço escolar. Aulas presenciais ou online com material incluso na hora da contratação.</p>
+        <div class="meta">⏱️ 1 hora • ⭐ 5.0 • R$ 50–120</div>
       </article>
     </section>
 
@@ -68,6 +123,10 @@
             <option value="limpeza">Limpeza</option>
             <option value="manutencao">Manutenção</option>
             <option value="entrega">Entrega</option>
+            <option value="aulas">Aulas</option>
+            <option value="montagem">Montagem</option>
+            <option value="frete">Frete</option>
+            <option value="digitacao">Digitação</option>
           </select>
         </div>
         <div class="filtro-item">
@@ -75,61 +134,63 @@
           <input type="text" id="local" name="local" placeholder="Cidade ou Bairro" />
         </div>
         <div class="filtro-item">
-          <button type="button">Buscar</button>
+          <button type="button" id="btn-buscar">Buscar</button>
+          <button type="button" id="btn-limpar">Limpar</button>
         </div>
       </div>
 
       <h2>Anúncios de Bicos Recentes</h2>
       <div class="container-anuncios">
         <div class="grade-anuncios">
-          <!-- Card 1 -->
-          <article class="card">
-            <img src="../assets/imgs/card1.jpg" alt="Digitação de Documentos">
+          <!-- Cards (mesmos do seu exemplo) -->
+          <article class="card" data-category="digitacao" data-local="Centro">
+            <img src="assets/imgs/indexPage/DigitadorDocumentos.jpg" alt="Digitação de Documentos">
             <h3>Digitação de Documentos</h3>
-            <p>Preciso de alguém para digitar 20 páginas de um manuscrito. Urgente!</p>
+            <p>Preciso de alguém para digitar 20 páginas de um manuscrito. Formatação simples (Word), revisão mínima e entrega em 24h.</p>
+            <div class="meta">Entrega em 24h • Preferência por digitação rápida • Pagamento na entrega</div>
             <span class="valor">R$ 40,00</span>
           </article>
-          <!-- Card 2 -->
-          <article class="card">
-            <img src="../assets/imgs/card2.jpg" alt="Montagem de Móveis">
+          <article class="card" data-category="montagem" data-local="Jardim das Flores">
+            <img src="assets/imgs/indexPage/MontadorMoveis.jpg" alt="Montagem de Móveis">
             <h3>Montagem de Móveis</h3>
-            <p>Montar uma estante e um guarda-roupas. Ferramentas inclusas.</p>
+            <p>Montar uma estante grande (2,2m) e um guarda-roupas de casal. Já tenho instruções e algumas peças; preciso de profissional com experiência.</p>
+            <div class="meta">Ferramentas inclusas • 2 pessoas recomendadas</div>
             <span class="valor">R$ 80,00</span>
           </article>
-          <!-- Card 3 -->
-          <article class="card">
-            <img src="../assets/imgs/card3.jpg" alt="Serviço de Entrega">
+          <article class="card" data-category="entrega" data-local="Zona Norte">
+            <img src="assets/imgs/indexPage/ServicoEntrega.jpg" alt="Serviço de Entrega">
             <h3>Serviço de Entrega</h3>
-            <p>Levar pacotes do centro para a zona norte da cidade. Pagamento no ato.</p>
+            <p>Levar pacotes do centro para a zona norte da cidade (3 pontos). Envio no mesmo dia, pagamento no ato. Veículo pequeno suficiente.</p>
+            <div class="meta">3 paradas • Peso total até 20kg • Pagamento no ato</div>
             <span class="valor">R$ 30,00</span>
           </article>
-          <!-- Card 4 -->
-          <article class="card">
-            <img src="../assets/imgs/card1.jpg" alt="Exemplo Card 4">
-            <h3>Exemplo Card 4</h3>
-            <p>Descrição do card 4.</p>
-            <span class="valor">R$ 50,00</span>
+          <article class="card" data-category="manutencao" data-local="Bela Vista">
+            <img src="assets/imgs/indexPage/ReparoEletrico.jpg" alt="Reparo Elétrico">
+            <h3>Reparo Elétrico (Tomada e Interruptor)</h3>
+            <p>Trocar uma tomada e consertar um interruptor que está com mau contato. Residência pequena, precisa de material básico.</p>
+            <div class="meta">Peças não inclusas • Profissional com certificado preferido</div>
+            <span class="valor">R$ 70,00</span>
           </article>
-          <!-- Card 5 -->
-          <article class="card">
-            <img src="../assets/imgs/card2.jpg" alt="Exemplo Card 5">
-            <h3>Exemplo Card 5</h3>
-            <p>Descrição do card 5.</p>
+          <article class="card" data-category="limpeza" data-local="Centro">
+            <img src="assets/imgs/indexPage/LimpezaProficional.jpg" alt="Limpeza Agendada">
+            <h3>Limpeza Profunda - Apartamento 2 quartos</h3>
+            <p>Limpeza completa após mudança: remover pó, lavar piso, cozinha e banheiro. Forneço materiais de limpeza ou pode ser acordado o fornecimento pelo prestador.</p>
+            <div class="meta">3-4 horas • Aceito parcelamento</div>
+            <span class="valor">R$ 150,00</span>
+          </article>
+          <article class="card" data-category="aulas" data-local="Vila Nova">
+            <img src="assets/imgs/indexPage/AulaMatatematica.jpg" alt="Aula de Matemática">
+            <h3>Aula de Matemática - Ensino Médio</h3>
+            <p>Aulas presenciais de reforço para aluno do 2º ano EM. Foco em geometria analítica e trigonometria. 1x por semana inicialmente.</p>
+            <div class="meta">1h por aula • Material incluso • Professores com experiência</div>
             <span class="valor">R$ 60,00</span>
-          </article>
-          <!-- Card 6 -->
-          <article class="card">
-            <img src="../assets/imgs/card3.jpg" alt="Exemplo Card 6">
-            <h3>Exemplo Card 6</h3>
-            <p>Descrição do card 6.</p>
-            <span class="valor">R$ 250,00</span>
           </article>
         </div>
       </div>
     </section>
   </div>
 
-  <!-- Paginação -->
+  <!-- Paginação (fora da section, mas controla apenas os cards de .grade-anuncios) -->
   <div class="paginacao">
     <a href="#">&laquo; Anterior</a>
     <a href="#">1</a>
@@ -144,12 +205,119 @@
   </footer>
 
   <script>
+    /**************************************************************************
+     * 1) MOVIMENTA O MENU DO PERFIL PARA document.body E O POSICIONA FIXO   *
+     * 2) TORNA O MENU ACESSÍVEL (keyboard nav, Esc, click fora)             *
+     * 3) GARANTE QUE WRAPPING DOS CARDS NÃO INTERFIRA NO MENU DO PERFIL     *
+     **************************************************************************/
+
+    (function () {
+      // Referências iniciais
+      const profileBtn = document.getElementById('profileBtn');
+      const originalMenu = document.getElementById('profileMenu');
+
+      // --- Safety: clone original markup into a new node that ficará no body ---
+      const menuFixed = document.createElement('div');
+      menuFixed.className = 'profile-menu-fixed';
+      // copy innerHTML to keep structure (icons/ids preserved)
+      menuFixed.innerHTML = originalMenu.innerHTML;
+
+      // ensure items are focusable anchors (they already are)
+      document.body.appendChild(menuFixed);
+
+      // find menu items inside the fixed menu
+      const menuItems = Array.from(menuFixed.querySelectorAll('.menu-item'));
+
+      // helper to place the menu under the button
+      function positionMenu() {
+        const rect = profileBtn.getBoundingClientRect();
+        const padding = 8; // small offset
+        const menuRect = menuFixed.getBoundingClientRect();
+        // try to align right edge with button's right, but keep inside viewport
+        let top = rect.bottom + padding;
+        let left = rect.right - Math.min(menuRect.width, 240); // align right-ish
+        // ensure menu doesn't overflow right edge
+        if (left + menuRect.width > window.innerWidth - 8) left = window.innerWidth - menuRect.width - 8;
+        // ensure menu doesn't overflow left
+        if (left < 8) left = 8;
+        // if not enough space at bottom, open above button
+        if (top + menuRect.height > window.innerHeight - 8) {
+          top = rect.top - menuRect.height - padding;
+        }
+        menuFixed.style.top = Math.round(top) + 'px';
+        menuFixed.style.left = Math.round(left) + 'px';
+      }
+
+      function openMenu() {
+        menuFixed.classList.add('open');
+        profileBtn.setAttribute('aria-expanded', 'true');
+        positionMenu();
+        // focus first item
+        setTimeout(() => menuItems[0]?.focus(), 10);
+      }
+      function closeMenu() {
+        menuFixed.classList.remove('open');
+        profileBtn.setAttribute('aria-expanded', 'false');
+        profileBtn.focus();
+      }
+      function toggleMenu(e) {
+        e.stopPropagation();
+        if (menuFixed.classList.contains('open')) closeMenu();
+        else openMenu();
+      }
+
+      // attach listeners
+      profileBtn.addEventListener('click', (e) => {
+        toggleMenu(e);
+      });
+
+      // click outside closes
+      document.addEventListener('click', (e) => {
+        if (!menuFixed.contains(e.target) && e.target !== profileBtn) {
+          if (menuFixed.classList.contains('open')) closeMenu();
+        }
+      });
+
+      // Esc closes
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && menuFixed.classList.contains('open')) closeMenu();
+      });
+
+      // keyboard nav inside menu
+      menuFixed.addEventListener('keydown', (e) => {
+        const idx = menuItems.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const next = menuItems[(idx + 1) % menuItems.length];
+          next.focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prev = menuItems[(idx - 1 + menuItems.length) % menuItems.length];
+          prev.focus();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          menuItems[0].focus();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          menuItems[menuItems.length - 1].focus();
+        } else if (e.key === 'Tab') {
+          // if user tabs out, close the menu
+          setTimeout(() => { if (!menuFixed.contains(document.activeElement)) closeMenu(); }, 0);
+        }
+      });
+
+      // reposition on resize / scroll while open
+      window.addEventListener('resize', () => { if (menuFixed.classList.contains('open')) positionMenu(); });
+      window.addEventListener('scroll', () => { if (menuFixed.classList.contains('open')) positionMenu(); }, true);
+
+      // if the original menu exists in DOM, remove it to avoid duplicates/visual issues
+      // but keep it in case scripts expect it (so we only hide it)
+      originalMenu.style.display = 'none';
+    })();
+
+    // ===== IntersectionObserver + filtros + tornar cards clicáveis =====
     document.addEventListener('DOMContentLoaded', () => {
-      const options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2
-      };
+      const options = { root: null, rootMargin: '0px', threshold: 0.2 };
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -159,34 +327,65 @@
         });
       }, options);
 
-      // Seletor unificado para todas as seções animadas
       const elementos = document.querySelectorAll(
         '.cabecalho-superior, .cabecalho-inferior, .filtros, ' +
         '.destaques .card, .anuncios h2, .grade-anuncios .card, ' +
         '.paginacao a, .rodape'
       );
       elementos.forEach(el => observer.observe(el));
-    });
-  document.addEventListener('DOMContentLoaded', () => {
-    // Seleciona todos os cards nas duas seções
-    const cards = document.querySelectorAll('.destaques .card, .grade-anuncios .card');
 
-    cards.forEach(card => {
-      // Cria um <a> envoltório
-      const link = document.createElement('a');
-      link.href = 'html/profissional.html';
-      // Faz com que ocupe o espaço todo do card
-      link.style.display = 'block';
-      link.style.textDecoration = 'none';
-      // Insere o <a> no lugar do card e move o card para dentro dele
-      card.parentNode.replaceChild(link, card);
-      link.appendChild(card);
+      // filtro simples
+      (function () {
+        const btnBuscar = document.getElementById('btn-buscar');
+        const btnLimpar = document.getElementById('btn-limpar');
+        const selectCategoria = document.getElementById('categoria');
+        const inputLocal = document.getElementById('local');
+        const cards = document.querySelectorAll('.grade-anuncios .card');
 
-      // Opcional: muda o cursor ao passar o mouse
-      card.style.cursor = 'pointer';
+        function normalize(str) {
+          if (!str) return '';
+          return str.toString().toLowerCase().trim();
+        }
+
+        function aplicarFiltro() {
+          const categoria = normalize(selectCategoria.value);
+          const local = normalize(inputLocal.value);
+
+          cards.forEach(card => {
+            const cardCat = normalize(card.getAttribute('data-category'));
+            const cardLocal = normalize(card.getAttribute('data-local'));
+            const okCategoria = !categoria || cardCat === categoria;
+            const okLocal = !local || (cardLocal && cardLocal.indexOf(local) !== -1);
+            if (okCategoria && okLocal) card.classList.remove('hidden'); else card.classList.add('hidden');
+          });
+        }
+
+        btnBuscar.addEventListener('click', aplicarFiltro);
+        inputLocal.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); aplicarFiltro(); }});
+        btnLimpar.addEventListener('click', () => { selectCategoria.value = ''; inputLocal.value = ''; aplicarFiltro(); });
+        aplicarFiltro();
+      })();
+
+      // === tornar cards clicáveis (FIX seguro)
+      (function () {
+        const allCards = document.querySelectorAll('.destaques > .card, .grade-anuncios > .card');
+        allCards.forEach(card => {
+          if (!card.closest('a')) {
+            const parent = card.parentElement;
+            if (parent && (parent.classList.contains('destaques') || parent.classList.contains('grade-anuncios'))) {
+              const link = document.createElement('a');
+              link.href = 'html/profissional.html';
+              link.style.display = 'block';
+              link.style.textDecoration = 'none';
+              parent.insertBefore(link, card);
+              link.appendChild(card);
+              card.style.cursor = 'pointer';
+            }
+          }
+        });
+      })();
     });
-  });
-</script>
+  </script>
 
 </body>
 

@@ -1,270 +1,491 @@
+/* Reset e básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
-
 body {
   background: #f5f5f5;
   color: #333;
-  line-height: 1.5;
+  line-height: 1.6;
 }
-
 a {
   text-decoration: none;
+  color: inherit;
 }
 
-/* ---------- HEADER ---------- */
-.header {
-  background: #FFA000;
+/* ---------- CABEÇALHO ---------- */
+.cabecalho {
+  background: #000;
   color: #fff;
   padding: 1rem 2rem;
+  position: relative; /* importante para dropdowns posicionados relativamente */
+  z-index: 1200;      /* evita que o cabeçalho seja coberto por outros elementos */
+}
+.cabecalho-superior,
+.cabecalho-inferior {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+.cabecalho-superior.visible,
+.cabecalho-inferior.visible {
+  animation: fadeInDown 0.8s ease forwards;
+}
+.cabecalho-superior { animation-delay: 0.2s; }
+.cabecalho-inferior { animation-delay: 0.4s; }
+
+/* superior: logo + info + profile */
+.cabecalho-superior {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+.logo img {
+  height: 50px;
+  display: block;
+}
+.info-site {
+  margin-left: 1rem;
+  flex: 1;
+}
+.info-site p {
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 
-.header-top {
+/* inferior: menu principal */
+.cabecalho-inferior {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+}
+.menu ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+.menu li a {
+  font-weight: bold;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+  color: inherit;
+  display: inline-block;
+}
+.menu li a:hover,
+.menu li a.ativo,
+.menu li a.active {
+  background: #ff9800;
+  color: #fff;
+}
+.menu li a:focus {
+  outline: 3px solid rgba(255,152,0,0.25);
+  outline-offset: 3px;
 }
 
-.header-logo img {
-  height: 50px;
+/* Pequeno estilo global utilitário */
+.hidden { display: none !important; }
+
+/* ---------- PERFIL: botão + dropdown ---------- */
+/* botão de perfil (círculo) */
+.profile-btn {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.15);
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  text-decoration: none;
+  position: relative;
+}
+.profile-btn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 999px;
+}
+.profile-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.25); }
+.profile-btn:focus { outline: 3px solid #ff9800; outline-offset: 3px; }
+
+/* dropdown posicionado relativamente ao botão (versão inline no cabeçalho) */
+.profile-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  min-width: 190px;
+  background: #fff;
+  color: #222;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  padding: 6px;
+  display: none;
+  z-index: 2200;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.profile-menu.open { display: block; }
+
+/* fixed clone (usado em páginas onde removemos o original para evitar clipping) */
+.profile-menu-fixed {
+  position: fixed;
+  min-width: 200px;
+  background: #fff;
+  color: #222;
+  border-radius: 8px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+  padding: 6px;
+  display: none;
+  z-index: 99999;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.profile-menu-fixed.open { display: block; }
+
+/* items do menu */
+.profile-menu .menu-item,
+.profile-menu-fixed .menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  color: #222;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  background: transparent;
+  border: none;
+}
+.profile-menu .menu-item:hover,
+.profile-menu .menu-item:focus,
+.profile-menu-fixed .menu-item:hover,
+.profile-menu-fixed .menu-item:focus {
+  background: #f6f6f6;
+  outline: none;
+}
+.profile-menu .menu-item .icon,
+.profile-menu-fixed .menu-item .icon {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items:center;
+  justify-content:center;
+  opacity: 0.9;
+}
+.profile-menu .menu-sep,
+.profile-menu-fixed .menu-sep {
+  height: 1px;
+  background: #eee;
+  margin: 6px 4px;
+  border-radius: 2px;
 }
 
-.header-filtros {
+/* mobile adjustments */
+@media (max-width: 480px) {
+  .profile-btn { width: 40px; height: 40px; border-width: 1px; }
+  .logo img { height: 44px; }
+  .profile-menu { right: 8px; left: auto; top: calc(100% + 8px); min-width: 160px; }
+  .profile-menu-fixed { min-width: 160px; right: 8px; left: auto; }
+}
+
+/* ---------- FILTROS ---------- */
+.filtros {
   background: #fff;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   color: #333;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-  margin: 0.5rem 0;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(-20px);
 }
-
-.header-filtros select,
-.header-filtros input {
+.filtros.visible {
+  animation: fadeInDown 0.8s ease forwards;
+  animation-delay: 0.6s;
+}
+.filtros .filtro-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.filtros label {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.filtros select,
+.filtros input {
   padding: 0.4rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  min-width: 120px;
 }
-
-.header-filtros button {
+.filtros button {
   background: #ff9800;
   color: #fff;
   border: none;
   padding: 0.5rem 0.8rem;
   cursor: pointer;
   border-radius: 4px;
-  transition: background 0.3s;
 }
+.filtros button:hover { background: #e68a00; }
 
-.header-filtros button:hover {
-  background: #e68a00;
-}
-
-.header-menu ul {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-}
-
-.header-menu li a {
-  color: #fff;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-/* ---------- PERFIL DO PROFISSIONAL ---------- */
-.profile-section {
-  background: #fff;
-  margin: 1rem 2rem;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
-}
-
-.profile-foto img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #FFA000;
-}
-
-.profile-infos {
-  flex: 1;
-}
-
-.profile-infos .profile-nome {
-  font-size: 1.8rem;
-  margin-bottom: 0.3rem;
-  color: #333;
-}
-
-.profile-infos .profile-desc {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 0.6rem;
-}
-
-.profile-selos img {
-  height: 30px;
-  margin-right: 0.5rem;
-}
-
-.profile-action {
-  text-align: center;
-  margin-top: 0.5rem;
-  width: 100%;
-}
-
-.negociacao-btn {
-  background: #ff9800;
-  color: #fff;
-  border: none;
-  padding: 0.8rem 2rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.negociacao-btn:hover {
-  background: #e68a00;
-}
-
-/* ---------- ÁREA PRINCIPAL - Serviços Realizados ---------- */
-.main-container {
+/* ---------- ÁREA PRINCIPAL / GRADE ---------- */
+.area-principal {
+  display: grid;
+  grid-template-columns: 0.6fr 2fr;
+  gap: 2rem;
   padding: 2rem;
 }
 
-.cards-container {
-  background: #fff;
+/* Destaques - esquerda */
+.destaques {
+  background: white;
   border-radius: 5px;
   padding: 1rem;
-  margin-bottom: 2rem;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
-
-.cards-container h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  padding-left: 1rem;
-  color: #333;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
-  padding: 0 1rem 1rem;
-}
-
-.card {
-  background: #fafafa;
+.destaques .card {
+  opacity: 0;
+  transform: translateX(-30px);
+  background: #ddd;
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.destaques .card.visible { animation: fadeInLeft 0.6s ease forwards; }
+
+/* Garante que o <a> envoltório seja bloco */
+.destaques a,
+.grade-anuncios a { display:block; }
+.destaques a:hover .card,
+.grade-anuncios a:hover .card {
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+/* Anúncios / grade (direita) */
+.anuncios {
+  background: white;
+  border-radius: 5px;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+}
+.anuncios h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateX(30px);
+}
+.anuncios h2.visible {
+  animation: fadeInRight 0.8s ease forwards;
+  animation-delay: 0.8s;
 }
 
+/* Grade responsiva */
+.grade-anuncios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  align-items: start;
+  justify-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
+  padding-bottom: 0.5rem;
+}
+.grade-anuncios .card {
+  opacity: 0;
+  transform: translateY(30px);
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.grade-anuncios .card.visible { animation: fadeIn 0.6s ease forwards; }
+
+/* Imagens */
 .card img {
   width: 100%;
-  height: 150px;
+  height: auto;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 6px;
+  aspect-ratio: 16 / 9;
 }
 
-.card h3 {
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-  color: #333;
-}
-
-.card p {
-  font-size: 0.95rem;
-  flex: 1;
+/* Meta e valor */
+.grade-anuncios .card .meta {
+  margin-top: auto;
+  font-size: 0.9rem;
   color: #555;
 }
-
-.card-valor {
-  font-weight: bold;
+.grade-anuncios .card .valor {
+  font-weight: 700;
+  margin-top: 0.4rem;
   color: #ff9800;
-  margin-top: 0.5rem;
-  font-size: 1rem;
 }
 
-/* ---------- PAGINAÇÃO (Opcional) ---------- */
+/* ---------- PAGINAÇÃO ---------- */
+/* Centraliza SEMPRE a área da paginação */
 .paginacao {
-  text-align: center;
-  margin: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 2rem 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* Botões */
 .paginacao a {
   display: inline-block;
-  margin: 0 0.2rem;
   padding: 0.5rem 0.8rem;
   color: #333;
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 3px;
-  transition: background 0.3s;
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
 }
 
-.paginacao a.active,
+/* hover — laranja */
 .paginacao a:hover {
+  background: #ff9800;
+  color: #fff;
+  border-color: #ff9800;
+  transform: scale(1.05);
+}
+
+/* ativo */
+.paginacao a.ativo,
+.paginacao a.active {
   background: #ff9800;
   color: #fff;
   border-color: #ff9800;
 }
 
 /* ---------- RODAPÉ ---------- */
-.footer {
+.rodape, .footer {
   background: #333;
   color: #fff;
   text-align: center;
   padding: 1rem 2rem;
   margin-top: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
 }
+.rodape.visible,
+.footer.visible { animation: fadeInUp 0.8s ease forwards; animation-delay: 0.8s; }
+
+/* ---------- PÁGINA SOBRE / HERO / FEATURES / TEAM ---------- */
+/* sobre-hero */
+.sobre-hero {
+  background: linear-gradient(-45deg, #ff9800, #ff5722, #e91e63, #9c27b0);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: #fff;
+  text-align: center;
+  padding: 5rem 2rem;
+}
+.sobre-hero h1 { font-size: 3rem; margin-bottom: 1rem; animation: fadeInDown 1s ease both; }
+.sobre-hero p { font-size: 1.25rem; max-width: 800px; margin: 0 auto; animation: fadeInUp 1s 0.5s ease both; }
+
+/* features */
+.features { padding: 4rem 2rem; text-align: center; }
+.features h2 { font-size: 2rem; margin-bottom: 2rem; position: relative; }
+.features h2::after { content: ''; width: 60px; height: 4px; background: #ff9800; display: block; margin: 0.5rem auto 0; }
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 2rem; }
+.feature-card { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); opacity: 0; transform: translateY(30px); }
+.feature-card.visible { animation: fadeIn 0.8s ease forwards; }
+.feature-card i { font-size: 2.5rem; color: #ff9800; margin-bottom: 1rem; }
+
+/* team */
+.team { background: #fafafa; padding: 4rem 2rem; text-align: center; }
+.team-members { display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; }
+.member { width:180px; opacity:0; transform:translateY(30px); }
+.member.visible { animation: fadeIn 0.8s ease forwards; }
+.member img { width:180px; height:180px; object-fit:cover; border-radius:50%; transition:transform .3s; }
+.member img:hover { transform: scale(1.05); }
+
+/* CTA */
+.cta { background: #ff9800; color: #fff; text-align: center; padding: 3rem 2rem; animation: pulse 2.5s ease-in-out infinite; }
+.btn { display:inline-block; background:#fff; color:#ff9800; padding:0.8rem 2rem; border-radius:4px; font-weight:700; transition:background .3s, transform .3s; }
+.btn:hover { background:#ffe0b2; transform: translateY(-3px); }
+
+/* ---------- PERFIL / PROFISSIONAL (ajustes específicos) ---------- */
+/* container de perfil (quando usado em páginas de perfil/profissional) */
+.profile-card, .side-card, .perfil-card {
+  background:#fff;
+  border-radius:10px;
+  padding:1rem;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+}
+.profile-avatar, .avatar-wrap {
+  width:110px; height:110px; border-radius:999px; overflow:hidden; border:3px solid rgba(0,0,0,.06); background:#f0f0f0;
+}
+.profile-avatar img, .avatar-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* botões locais do perfil */
+.btn-small { padding:.45rem .7rem; border-radius:6px; border:none; cursor:pointer; background:#ff9800; color:#fff; font-weight:700; }
+.btn-outline { background:#fff; color:#333; border:1px solid #ddd; padding:.45rem .7rem; border-radius:6px; cursor:pointer; }
+
+/* small utility for chips */
+.chips { display:flex; gap:.4rem; flex-wrap:wrap; }
+.chip { background:#f1f1f1; padding:.3rem .6rem; border-radius:999px; font-size:.85rem; }
+
+/* profile-menu-fixed styling already defined above */
+
+/* ---------- ACCESSIBILITY / focus helpers ---------- */
+[role="menuitem"]:focus { outline: 3px solid rgba(255,152,0,0.25); outline-offset: 3px; border-radius:6px; }
+
+/* ---------- KEYFRAMES ---------- */
+@keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes fadeInDown { 0% { opacity: 0; transform: translateY(-20px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInLeft { 0% { opacity: 0; transform: translateX(-30px); } 100% { opacity: 1; transform: translateX(0); } }
+@keyframes fadeInRight { 0% { opacity: 0; transform: translateX(30px); } 100% { opacity: 1; transform: translateX(0); } }
+@keyframes fadeIn { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes popIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes pulse { 0%,100%{ transform:scale(1) } 50%{ transform:scale(1.02) } }
 
 /* ---------- RESPONSIVIDADE ---------- */
-@media (max-width: 768px) {
-  .header-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .header-menu ul {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  
-  .profile-section {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .profile-infos, .profile-action {
-    width: 100%;
-  }
-  
-  .cards-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .main-container {
-    padding: 1rem;
-  }
+@media (max-width: 1100px) {
+  .grade-anuncios { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .area-principal { grid-template-columns: 1fr; padding: 1rem; }
 }
+@media (max-width: 768px) {
+  .area-principal { display: flex; flex-direction: column; }
+  .cabecalho-inferior { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .menu ul { flex-wrap: wrap; gap: 0.5rem; }
+  .filtros { width: 100%; justify-content: space-between; }
+  .grade-anuncios { grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 0.8rem; }
+  .sobre-hero h1 { font-size: 2.2rem; }
+}
+
+/* small visual tweak to ensure header visible above content */
+main, .area-principal, .profile-container { position: relative; z-index: 1; }
