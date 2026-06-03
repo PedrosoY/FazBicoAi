@@ -24,17 +24,17 @@
     .profile-avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
     .profile-meta { flex:1; min-width:220px; }
     .profile-meta h1{ font-size:1.6rem; margin-bottom:.25rem; }
-    .profile-meta p{ color:#555; margin-bottom:.6rem; }
-    .profile-stats{ display:flex; gap:1rem; align-items:center; color:#555; font-size:.95rem; margin-bottom:.6rem; }
+    .profile-meta p{ color:#64748b; margin-bottom:.6rem; }
+    .profile-stats{ display:flex; gap:1rem; align-items:center; color:#64748b; font-size:.95rem; margin-bottom:.6rem; }
     .profile-actions{ display:flex; gap:.6rem; flex-wrap:wrap; }
-    .btn-primary{ background:#ff9800; color:#fff; border:none; padding:.6rem .9rem; border-radius:6px; cursor:pointer; font-weight:700; }
-    .btn-outline{ background:#fff; color:#333; border:1px solid #ddd; padding:.5rem .8rem; border-radius:6px; cursor:pointer; }
+    .btn-primary{ background:#1e3a8a; color:#fff; border:none; padding:.6rem .9rem; border-radius:6px; cursor:pointer; font-weight:700; }
+    .btn-outline{ background:#fff; color:#0f172a; border:1px solid #e5e7eb; padding:.5rem .8rem; border-radius:6px; cursor:pointer; }
 
     .sidebar{ position:relative; top:0; display:flex; flex-direction:column; gap:1rem; }
     .sidebar .card{ padding:1rem; border-radius:8px; background:#fff; box-shadow:0 6px 20px rgba(0,0,0,0.04); }
     .contact-row{ display:flex; gap:.5rem; align-items:center; color:#444; }
 
-    .section-title{ font-size:1.25rem; margin:0 0 .75rem 0; color:#333; }
+    .section-title{ font-size:1.25rem; margin:0 0 .75rem 0; color:#0f172a; }
     .services-wrap{ margin-top:1rem; }
     .grade-anuncios{ gap:1rem; display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
     .grade-anuncios .card{ background:#fff; padding:.85rem; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.04); display:flex; flex-direction:column; gap:.6rem; }
@@ -60,7 +60,7 @@
       box-shadow: 0 18px 48px rgba(0,0,0,0.18);
       padding: 6px;
       display: none;
-      z-index: 20000;
+      z-index: 20f172a0;
       border: 1px solid rgba(0,0,0,0.06);
       pointer-events: auto;
       -webkit-tap-highlight-color: transparent;
@@ -69,11 +69,11 @@
     .profile-menu-fixed .menu-item {
       display:flex; align-items:center; gap:.6rem; padding:.6rem .9rem; border-radius:6px; cursor:pointer; color:#222; text-decoration:none;
     }
-    .profile-menu-fixed .menu-item:hover, .profile-menu-fixed .menu-item:focus { background:#f6f6f6; outline:none; }
+    .profile-menu-fixed .menu-item:hover, .profile-menu-fixed .menu-item:focus { background:#eef2ff; outline:none; }
     .profile-menu-fixed .menu-sep { height:1px; background:#eee; margin:6px 4px; border-radius:2px; }
 
     /* garante que o botão fique acima de outros elementos */
-    .profile-btn { z-index: 3000; position: relative; }
+    .profile-btn { z-index: 30f172a; position: relative; }
   </style>
 </head>
 <body>
@@ -137,7 +137,7 @@
 
         <div style="min-width:120px; display:flex; align-items:flex-start; justify-content:flex-end;">
           <div style="text-align:right;">
-            <div style="font-weight:700; color:#333;">R$ 60 / h</div>
+            <div style="font-weight:700; color:#0f172a;">R$ 60 / h</div>
             <div style="font-size:0.85rem; color:#666; margin-top:.4rem;">Disponível: Seg–Sex</div>
           </div>
         </div>
@@ -182,8 +182,8 @@
     <aside class="sidebar" aria-labelledby="contato-title">
       <div class="card">
         <h3 id="contato-title">Contato</h3>
-        <div class="contact-row"><strong>Email:</strong><span style="margin-left:.5rem;color:#555">pedro@example.com</span></div>
-        <div class="contact-row" style="margin-top:.45rem;"><strong>WhatsApp:</strong><span style="margin-left:.5rem;color:#555">(11) 9 9999-9999</span></div>
+        <div class="contact-row"><strong>Email:</strong><span style="margin-left:.5rem;color:#64748b">pedro@example.com</span></div>
+        <div class="contact-row" style="margin-top:.45rem;"><strong>WhatsApp:</strong><span style="margin-left:.5rem;color:#64748b">(11) 9 9999-9999</span></div>
         <div style="margin-top:.75rem;">
           <button class="btn-primary" style="width:100%;">Solicitar Orçamento</button>
         </div>
@@ -193,16 +193,16 @@
         <h3>Avaliações</h3>
         <div style="margin-top:.5rem;">
           <div style="font-weight:700;">Mariana S. <span style="float:right;">★★★★★</span></div>
-          <div style="color:#555;font-size:0.95rem;margin-top:.25rem;">Serviço impecável — chegou no horário e deixou tudo certo.</div>
+          <div style="color:#64748b;font-size:0.95rem;margin-top:.25rem;">Serviço impecável — chegou no horário e deixou tudo certo.</div>
           <hr style="border:none;border-top:1px solid #f0f0f0;margin:0.6rem 0;">
           <div style="font-weight:700;">Lucas P. <span style="float:right;">★★★★☆</span></div>
-          <div style="color:#555;font-size:0.95rem;margin-top:.25rem;">Ótimo professor, explicações claras.</div>
+          <div style="color:#64748b;font-size:0.95rem;margin-top:.25rem;">Ótimo professor, explicações claras.</div>
         </div>
       </div>
 
       <div class="card">
         <h3>Informações</h3>
-        <ul style="list-style:none;margin-top:.5rem;color:#555;padding-left:0">
+        <ul style="list-style:none;margin-top:.5rem;color:#64748b;padding-left:0">
           <li>⏱️ Tempo médio: 2 - 4 horas</li>
           <li>📍 Atende: São Paulo — Vila Nova</li>
           <li>🔒 Pagamento: no local / transferência</li>

@@ -7,7 +7,7 @@
 }
 body {
   background: #f5f5f5;
-  color: #333;
+  color: #0f172a;
   line-height: 1.6;
 }
 a {
@@ -17,7 +17,7 @@ a {
 
 /* ---------- CABEÇALHO ---------- */
 .cabecalho {
-  background: #000;
+  background: #0f172a;
   color: #fff;
   padding: 1rem 2rem;
 }
@@ -91,7 +91,7 @@ a {
       border-radius: 999px;
     }
     .profile-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.25); }
-    .profile-btn:focus { outline: 3px solid #ff9800; outline-offset: 3px; }
+    .profile-btn:focus { outline: 3px solid #1e3a8a; outline-offset: 3px; }
 
     /* dropdown */
     .profile-menu {
@@ -123,7 +123,7 @@ a {
     }
     .profile-menu .menu-item:hover,
     .profile-menu .menu-item:focus {
-      background: #f6f6f6;
+      background: #eef2ff;
       outline: none;
     }
     .profile-menu .menu-item .icon {
@@ -153,7 +153,7 @@ a {
   background: #fff;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  color: #333;
+  color: #0f172a;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -178,12 +178,12 @@ a {
 .filtros select,
 .filtros input {
   padding: 0.4rem;
-  border: 1px solid #ccc;
+  border: 1px solid #cbd5e1;
   border-radius: 4px;
   min-width: 120px;
 }
 .filtros button {
-  background: #ff9800;
+  background: #1e3a8a;
   color: #fff;
   border: none;
   padding: 0.5rem 0.8rem;
@@ -191,7 +191,7 @@ a {
   border-radius: 4px;
 }
 .filtros button:hover {
-  background: #e68a00;
+  background: #0f172a;
 }
 
 /* ---------- ÁREA PRINCIPAL ---------- */
@@ -215,7 +215,7 @@ a {
 .destaques .card {
   opacity: 0;
   transform: translateX(-30px);
-  background: #ddd; /* card com cinza mais escuro */
+  background: #e5e7eb; /* card com cinza mais escuro */
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -284,7 +284,7 @@ a {
 .grade-anuncios .card {
   opacity: 0;
   transform: translateY(30px);
-  background: #ddd; /* card com cinza */
+  background: #e5e7eb; /* card com cinza */
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -317,7 +317,7 @@ a {
 .grade-anuncios .card .meta {
   margin-top: auto; /* empurra meta/valor para o fim do card */
   font-size: 0.9rem;
-  color: #555;
+  color: #64748b;
 }
 .grade-anuncios .card .valor {
   font-weight: 700;
@@ -339,9 +339,9 @@ a {
 .paginacao a {
   display: inline-block;
   padding: 0.5rem 0.8rem;
-  color: #333;
+  color: #0f172a;
   background: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #cbd5e1;
   border-radius: 3px;
 
   /* animação que você já tinha */
@@ -370,22 +370,22 @@ a {
 
 /* Hover — fica laranja */
 .paginacao a:hover {
-  background: #ff9800;
+  background: #1e3a8a;
   color: #fff;
-  border-color: #ff9800;
+  border-color: #1e3a8a;
   transform: scale(1.05);
 }
 
 /* Botão da página ativa */
 .paginacao a.ativo {
-  background: #ff9800;
+  background: #1e3a8a;
   color: #fff;
-  border-color: #ff9800;
+  border-color: #1e3a8a;
 }
 
 /* ---------- RODAPÉ ---------- */
 .rodape {
-  background: #333;
+  background: #0f172a;
   color: #fff;
   text-align: center;
   padding: 1rem 2rem;

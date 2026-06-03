@@ -5,11 +5,13 @@
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
+
 body {
-  background: #f5f5f5;
-  color: #333;
+  background: #F3F6FB;
+  color: #1F2A44;
   line-height: 1.6;
 }
+
 a {
   text-decoration: none;
   color: inherit;
@@ -17,22 +19,30 @@ a {
 
 /* ---------- CABEÇALHO ---------- */
 .cabecalho {
-  background: #000;
+  background: #12336F;
   color: #fff;
   padding: 1rem 2rem;
   overflow: hidden;
 }
+
 .cabecalho-superior,
 .cabecalho-inferior {
   opacity: 0;
   transform: translateY(-20px);
 }
+
 .cabecalho-superior.visible,
 .cabecalho-inferior.visible {
   animation: fadeInDown 0.8s ease forwards;
 }
-.cabecalho-superior { animation-delay: 0.2s; }
-.cabecalho-inferior { animation-delay: 0.4s; }
+
+.cabecalho-superior {
+  animation-delay: 0.2s;
+}
+
+.cabecalho-inferior {
+  animation-delay: 0.4s;
+}
 
 /* layout do header */
 .cabecalho-superior {
@@ -41,18 +51,39 @@ a {
   justify-content: space-between;
   margin-bottom: 0.5rem;
 }
-.logo img { height: 50px; }
-.info-site { margin-left: 1rem; flex: 1; }
+
+.logo img {
+  height: 50px;
+}
+
+.info-site {
+  margin-left: 1rem;
+  flex: 1;
+}
+
 .cabecalho-inferior {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
 }
-.menu ul { list-style: none; display: flex; gap: 1rem; }
-.menu li a { font-weight: bold; color: #fff; transition: color 0.2s; }
+
+.menu ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.menu li a {
+  font-weight: bold;
+  color: #fff;
+  transition: color 0.2s;
+}
+
 .menu li a:hover,
-.menu li a.ativo { color: #ff9800; }
+.menu li a.ativo {
+  color: #C2CCDE;
+}
 
 /* ---------- LOGIN CARD ---------- */
 .login-wrapper {
@@ -61,13 +92,14 @@ a {
   justify-content: center;
   min-height: calc(100vh - 160px);
   padding: 2rem;
-  background: #f0f2f5;
+  background: #E2E8F0;
 }
+
 .login-card {
   background: #fff;
   padding: 2.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(18, 51, 111, 0.15);
   max-width: 360px;
   width: 100%;
   text-align: center;
@@ -77,42 +109,64 @@ a {
   animation: popIn 0.6s ease forwards;
   animation-delay: 0.6s;
 }
+
 .login-card h1 {
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
-  color: #333;
+  color: #12336F;
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeInDown 0.6s ease forwards;
   animation-delay: 0.8s;
 }
+
 .login-card form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
+
 .login-card label {
   text-align: left;
   font-size: 0.9rem;
-  color: #555;
+  color: #536595;
   opacity: 0;
   transform: translateX(-20px);
   animation: fadeInLeft 0.6s ease forwards;
 }
+
 .login-card input {
   padding: 0.7rem 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #C2CCDE;
   border-radius: 4px;
   font-size: 1rem;
   opacity: 0;
   transform: translateX(20px);
   animation: fadeInRight 0.6s ease forwards;
 }
+
+.login-card input:focus {
+  outline: none;
+  border-color: #12336F;
+  box-shadow: 0 0 0 3px rgba(18, 51, 111, 0.15);
+}
+
 /* Delay incremental para cada label/input pair */
-.login-card label:nth-of-type(1) { animation-delay: 1.0s; }
-.login-card input[type="email"] { animation-delay: 1.2s; }
-.login-card label:nth-of-type(2) { animation-delay: 1.4s; }
-.login-card input[type="password"] { animation-delay: 1.6s; }
+.login-card label:nth-of-type(1) {
+  animation-delay: 1s;
+}
+
+.login-card input[type="email"] {
+  animation-delay: 1.2s;
+}
+
+.login-card label:nth-of-type(2) {
+  animation-delay: 1.4s;
+}
+
+.login-card input[type="password"] {
+  animation-delay: 1.6s;
+}
 
 .remember {
   display: flex;
@@ -124,10 +178,11 @@ a {
   animation: fadeInUp 0.6s ease forwards;
   animation-delay: 1.8s;
 }
+
 .login-card button {
   margin-top: 0.5rem;
   padding: 0.8rem;
-  background: #ff9800;
+  background: #12336F;
   color: #fff;
   border: none;
   font-size: 1rem;
@@ -138,23 +193,36 @@ a {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.6s ease forwards;
-  animation-delay: 2.0s;
+  animation-delay: 2s;
 }
+
+.login-card button:hover {
+  background: #0F2B5F;
+}
+
 .login-card .link-cadastro {
   margin-top: 1rem;
   font-size: 0.9rem;
-  color: #555;
+  color: #536595;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.6s ease forwards;
   animation-delay: 2.2s;
 }
-.login-card .link-cadastro a { color: #ff9800; font-weight: bold; transition: opacity 0.2s; }
-.login-card .link-cadastro a:hover { opacity: 0.8; }
+
+.login-card .link-cadastro a {
+  color: #12336F;
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+
+.login-card .link-cadastro a:hover {
+  opacity: 0.8;
+}
 
 /* ---------- RODAPÉ ---------- */
 .rodape {
-  background: #333;
+  background: #12336F;
   color: #fff;
   text-align: center;
   padding: 1rem 2rem;
@@ -163,6 +231,7 @@ a {
   opacity: 0;
   transform: translateY(20px);
 }
+
 .rodape.visible {
   animation: fadeInUp 0.8s ease forwards;
   animation-delay: 2.4s;
@@ -170,28 +239,67 @@ a {
 
 /* ---------- KEYFRAMES ---------- */
 @keyframes fadeInDown {
-  0% { opacity: 0; transform: translateY(-20px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @keyframes fadeInLeft {
-  0% { opacity: 0; transform: translateX(-20px); }
-  100% { opacity: 1; transform: translateX(0); }
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
+
 @keyframes fadeInRight {
-  0% { opacity: 0; transform: translateX(20px); }
-  100% { opacity: 1; transform: translateX(0); }
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
+
 @keyframes popIn {
-  0% { opacity: 0; transform: scale(0.9); }
-  100% { opacity: 1; transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* --- Responsividade --- */
 @media (max-width: 480px) {
-  .login-card { padding: 1.5rem; }
-  .login-card h1 { font-size: 1.5rem; }
+  .login-card {
+    padding: 1.5rem;
+  }
+
+  .login-card h1 {
+    font-size: 1.5rem;
+  }
 }

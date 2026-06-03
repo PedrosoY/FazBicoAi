@@ -7,7 +7,7 @@
 }
 body {
   background: #f5f5f5;
-  color: #333;
+  color: #0f172a;
   line-height: 1.6;
 }
 a {
@@ -17,7 +17,7 @@ a {
 
 /* ---------- CABEÇALHO ---------- */
 .cabecalho {
-  background: #000;
+  background: #0f172a;
   color: #fff;
   padding: 1rem 2rem;
   position: relative; /* importante para dropdowns posicionados relativamente */
@@ -79,7 +79,7 @@ a {
 .menu li a:hover,
 .menu li a.ativo,
 .menu li a.active {
-  background: #ff9800;
+  background: #1e3a8a;
   color: #fff;
 }
 .menu li a:focus {
@@ -116,7 +116,7 @@ a {
   border-radius: 999px;
 }
 .profile-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.25); }
-.profile-btn:focus { outline: 3px solid #ff9800; outline-offset: 3px; }
+.profile-btn:focus { outline: 3px solid #1e3a8a; outline-offset: 3px; }
 
 /* dropdown posicionado relativamente ao botão (versão inline no cabeçalho) */
 .profile-menu {
@@ -169,7 +169,7 @@ a {
 .profile-menu .menu-item:focus,
 .profile-menu-fixed .menu-item:hover,
 .profile-menu-fixed .menu-item:focus {
-  background: #f6f6f6;
+  background: #eef2ff;
   outline: none;
 }
 .profile-menu .menu-item .icon,
@@ -202,7 +202,7 @@ a {
   background: #fff;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  color: #333;
+  color: #0f172a;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -227,19 +227,19 @@ a {
 .filtros select,
 .filtros input {
   padding: 0.4rem;
-  border: 1px solid #ccc;
+  border: 1px solid #cbd5e1;
   border-radius: 4px;
   min-width: 120px;
 }
 .filtros button {
-  background: #ff9800;
+  background: #1e3a8a;
   color: #fff;
   border: none;
   padding: 0.5rem 0.8rem;
   cursor: pointer;
   border-radius: 4px;
 }
-.filtros button:hover { background: #e68a00; }
+.filtros button:hover { background: #0f172a; }
 
 /* ---------- ÁREA PRINCIPAL / GRADE ---------- */
 .area-principal {
@@ -262,7 +262,7 @@ a {
 .destaques .card {
   opacity: 0;
   transform: translateX(-30px);
-  background: #ddd;
+  background: #e5e7eb;
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -336,12 +336,12 @@ a {
 .grade-anuncios .card .meta {
   margin-top: auto;
   font-size: 0.9rem;
-  color: #555;
+  color: #64748b;
 }
 .grade-anuncios .card .valor {
   font-weight: 700;
   margin-top: 0.4rem;
-  color: #ff9800;
+  color: #1e3a8a;
 }
 
 /* ---------- PAGINAÇÃO ---------- */
@@ -360,9 +360,9 @@ a {
 .paginacao a {
   display: inline-block;
   padding: 0.5rem 0.8rem;
-  color: #333;
+  color: #0f172a;
   background: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #cbd5e1;
   border-radius: 3px;
   opacity: 1;
   transform: scale(1);
@@ -375,23 +375,23 @@ a {
 
 /* hover — laranja */
 .paginacao a:hover {
-  background: #ff9800;
+  background: #1e3a8a;
   color: #fff;
-  border-color: #ff9800;
+  border-color: #1e3a8a;
   transform: scale(1.05);
 }
 
 /* ativo */
 .paginacao a.ativo,
 .paginacao a.active {
-  background: #ff9800;
+  background: #1e3a8a;
   color: #fff;
-  border-color: #ff9800;
+  border-color: #1e3a8a;
 }
 
 /* ---------- RODAPÉ ---------- */
 .rodape, .footer {
-  background: #333;
+  background: #0f172a;
   color: #fff;
   text-align: center;
   padding: 1rem 2rem;
@@ -405,7 +405,7 @@ a {
 /* ---------- PÁGINA SOBRE / HERO / FEATURES / TEAM ---------- */
 /* sobre-hero */
 .sobre-hero {
-  background: linear-gradient(-45deg, #ff9800, #ff5722, #e91e63, #9c27b0);
+  background: linear-gradient(-45deg, #1e3a8a, #111827, #0f172a, #1e3a8a);
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
   color: #fff;
@@ -418,14 +418,14 @@ a {
 /* features */
 .features { padding: 4rem 2rem; text-align: center; }
 .features h2 { font-size: 2rem; margin-bottom: 2rem; position: relative; }
-.features h2::after { content: ''; width: 60px; height: 4px; background: #ff9800; display: block; margin: 0.5rem auto 0; }
+.features h2::after { content: ''; width: 60px; height: 4px; background: #1e3a8a; display: block; margin: 0.5rem auto 0; }
 .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 2rem; }
 .feature-card { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); opacity: 0; transform: translateY(30px); }
 .feature-card.visible { animation: fadeIn 0.8s ease forwards; }
-.feature-card i { font-size: 2.5rem; color: #ff9800; margin-bottom: 1rem; }
+.feature-card i { font-size: 2.5rem; color: #1e3a8a; margin-bottom: 1rem; }
 
 /* team */
-.team { background: #fafafa; padding: 4rem 2rem; text-align: center; }
+.team { background: #f8fafc; padding: 4rem 2rem; text-align: center; }
 .team-members { display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; }
 .member { width:180px; opacity:0; transform:translateY(30px); }
 .member.visible { animation: fadeIn 0.8s ease forwards; }
@@ -433,9 +433,9 @@ a {
 .member img:hover { transform: scale(1.05); }
 
 /* CTA */
-.cta { background: #ff9800; color: #fff; text-align: center; padding: 3rem 2rem; animation: pulse 2.5s ease-in-out infinite; }
-.btn { display:inline-block; background:#fff; color:#ff9800; padding:0.8rem 2rem; border-radius:4px; font-weight:700; transition:background .3s, transform .3s; }
-.btn:hover { background:#ffe0b2; transform: translateY(-3px); }
+.cta { background: #1e3a8a; color: #fff; text-align: center; padding: 3rem 2rem; animation: pulse 2.5s ease-in-out infinite; }
+.btn { display:inline-block; background:#fff; color:#1e3a8a; padding:0.8rem 2rem; border-radius:4px; font-weight:700; transition:background .3s, transform .3s; }
+.btn:hover { background:#3b82f6; transform: translateY(-3px); }
 
 /* ---------- PERFIL / PROFISSIONAL (ajustes específicos) ---------- */
 /* container de perfil (quando usado em páginas de perfil/profissional) */
@@ -451,8 +451,8 @@ a {
 .profile-avatar img, .avatar-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
 
 /* botões locais do perfil */
-.btn-small { padding:.45rem .7rem; border-radius:6px; border:none; cursor:pointer; background:#ff9800; color:#fff; font-weight:700; }
-.btn-outline { background:#fff; color:#333; border:1px solid #ddd; padding:.45rem .7rem; border-radius:6px; cursor:pointer; }
+.btn-small { padding:.45rem .7rem; border-radius:6px; border:none; cursor:pointer; background:#1e3a8a; color:#fff; font-weight:700; }
+.btn-outline { background:#fff; color:#0f172a; border:1px solid #e5e7eb; padding:.45rem .7rem; border-radius:6px; cursor:pointer; }
 
 /* small utility for chips */
 .chips { display:flex; gap:.4rem; flex-wrap:wrap; }

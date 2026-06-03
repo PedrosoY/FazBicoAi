@@ -6,7 +6,7 @@
   }
   body {
     background: #f5f5f5;
-    color: #333;
+    color: #0f172a;
   }
   a {
     text-decoration: none;
@@ -15,7 +15,7 @@
   
   /* --- CABEÇALHO --- */
   .cabecalho {
-    background: #000;
+    background: #0f172a;
     color: #fff;
     padding: 1rem 2rem;
   }
@@ -49,7 +49,7 @@
     transition: color 0.2s;
   }
   .menu li a:hover {
-    color: #ff9800;
+    color: #1e3a8a;
   }
   
   /* --- FORMULÁRIO DE RESET --- */
@@ -59,7 +59,7 @@
     justify-content: center;
     min-height: calc(100vh - 160px); /* header + footer */
     padding: 2rem;
-    background: #f0f2f5;
+    background: #f1f5f9;
   }
   .reset-card {
     background: #fff;
@@ -73,11 +73,11 @@
   .reset-card h1 {
     margin-bottom: 1rem;
     font-size: 1.8rem;
-    color: #333;
+    color: #0f172a;
   }
   .reset-card p {
     margin-bottom: 1.5rem;
-    color: #555;
+    color: #0f172a;
   }
   .reset-card form {
     display: flex;
@@ -87,22 +87,22 @@
   .reset-card label {
     text-align: left;
     font-size: 0.9rem;
-    color: #555;
+    color: #0f172a;
   }
   .reset-card input {
     padding: 0.7rem 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid #cbd5e1;
     border-radius: 4px;
     font-size: 1rem;
   }
   .reset-card input:focus {
     outline: none;
-    border-color: #ff9800;
+    border-color: #1e3a8a;
     box-shadow: 0 0 0 2px rgba(255,152,0,0.2);
   }
   .reset-card button {
     padding: 0.8rem;
-    background: #ff9800;
+    background: #1e3a8a;
     color: #fff;
     border: none;
     font-size: 1rem;
@@ -112,14 +112,14 @@
     transition: background 0.2s;
   }
   .reset-card button:hover {
-    background: #e68a00;
+    background: #1e3a8a;
   }
   .reset-card .link-login {
     margin-top: 1rem;
     font-size: 0.9rem;
   }
   .reset-card .link-login a {
-    color: #ff9800;
+    color: #1e3a8a;
     font-weight: bold;
     transition: opacity 0.2s;
   }
@@ -129,7 +129,7 @@
   
   /* --- RODAPÉ --- */
   .rodape {
-    background: #333;
+    background: #0f172a;
     color: #fff;
     text-align: center;
     padding: 1rem 2rem;

@@ -17,11 +17,11 @@
     .avatar-wrap { width:110px; height:110px; border-radius:999px; overflow:hidden; border:3px solid rgba(0,0,0,.06); background:#f0f0f0; }
     .avatar-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
     .acoes-perfil { margin-left:auto; display:flex; gap:.5rem; align-items:center; }
-    .btn-small { padding:.45rem .7rem; border-radius:6px; border:none; cursor:pointer; background:#ff9800; color:#fff; font-weight:700; }
-    .btn-outline { background:#fff; color:#333; border:1px solid #ddd; padding:.45rem .7rem; border-radius:6px; cursor:pointer; }
+    .btn-small { padding:.45rem .7rem; border-radius:6px; border:none; cursor:pointer; background:#1e3a8a; color:#fff; font-weight:700; }
+    .btn-outline { background:#fff; color:#0f172a; border:1px solid #e5e7eb; padding:.45rem .7rem; border-radius:6px; cursor:pointer; }
     .perfil-form { display:grid; gap:.8rem; margin-top:.8rem; }
     .campo label { font-weight:700; font-size:.9rem; margin-bottom:.35rem; display:block; }
-    .campo input, .campo textarea { padding:.5rem .6rem; border:1px solid #ddd; border-radius:6px; width:100%; }
+    .campo input, .campo textarea { padding:.5rem .6rem; border:1px solid #e5e7eb; border-radius:6px; width:100%; }
     .chips { display:flex; gap:.4rem; flex-wrap:wrap; }
     .chip { background:#f1f1f1; padding:.3rem .6rem; border-radius:999px; font-size:.85rem; }
 
@@ -40,7 +40,7 @@
     }
     .profile-menu-fixed.open { display:block; }
     .profile-menu-fixed .menu-item { display:flex; gap:.6rem; align-items:center; padding:.6rem .9rem; border-radius:6px; cursor:pointer; text-decoration:none; color:inherit; }
-    .profile-menu-fixed .menu-item:hover { background:#f6f6f6; }
+    .profile-menu-fixed .menu-item:hover { background:#eef2ff; }
 
     /* pequenas melhorias visuais para as reviews */
     .review { padding:.6rem 0; border-bottom:1px dashed #f0f0f0; }
@@ -142,7 +142,7 @@
               <span class="chip">Aulas</span>
               <span class="chip">Reparo Elétrico</span>
             </div>
-            <input id="skillsInput" type="text" placeholder="Adicionar skill e pressionar Enter" style="display:none;padding:.4rem;border:1px solid #ddd;border-radius:6px;">
+            <input id="skillsInput" type="text" placeholder="Adicionar skill e pressionar Enter" style="display:none;padding:.4rem;border:1px solid #e5e7eb;border-radius:6px;">
           </div>
         </div>
 
@@ -153,20 +153,20 @@
       </form>
 
       <div style="margin-top:1rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
-        <div><strong>Disponibilidade</strong><div style="color:#555">Seg — Sex • 08:00 — 18:00</div></div>
-        <div><strong>Tempo de resposta</strong><div style="color:#555">Geralmente em até 2 horas</div></div>
+        <div><strong>Disponibilidade</strong><div style="color:#64748b">Seg — Sex • 08:00 — 18:00</div></div>
+        <div><strong>Tempo de resposta</strong><div style="color:#64748b">Geralmente em até 2 horas</div></div>
       </div>
     </section>
 
     <aside class="side-card" aria-labelledby="stats-title">
       <h3 id="stats-title">Estatísticas</h3>
       <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid #f0f0f0;">
-        <div><div style="font-weight:700;">4.9</div><div style="font-size:.85rem;color:#777;">Avaliação média</div></div>
+        <div><div style="font-weight:700;">4.9</div><div style="font-size:.85rem;color:#94a3b8;">Avaliação média</div></div>
         <div class="stars" aria-hidden="true">★★★★★</div>
       </div>
       <div style="margin-top:.6rem;">
         <strong>Contatos</strong>
-        <div style="font-size:.9rem;color:#555;margin-top:.4rem;">
+        <div style="font-size:.9rem;color:#64748b;margin-top:.4rem;">
           <div>Email: pedro@example.com</div>
           <div>WhatsApp: (11) 9 9999-9999</div>
         </div>
@@ -175,9 +175,9 @@
 
     <section class="avaliacoes" style="grid-column:1 / -1;">
       <h3>Avaliações recentes</h3>
-      <div class="review"><div class="autor">Mariana Santos <span class="stars">★★★★★</span></div><div style="color:#555;margin-top:.25rem;">Excelente serviço de montagem.</div></div>
-      <div class="review"><div class="autor">Lucas Pereira <span class="stars">★★★★☆</span></div><div style="color:#555;margin-top:.25rem;">Aula ótima.</div></div>
-      <div class="review"><div class="autor">Camila Rocha <span class="stars">★★★★★</span></div><div style="color:#555;margin-top:.25rem;">Resolveu um problema elétrico complicado.</div></div>
+      <div class="review"><div class="autor">Mariana Santos <span class="stars">★★★★★</span></div><div style="color:#64748b;margin-top:.25rem;">Excelente serviço de montagem.</div></div>
+      <div class="review"><div class="autor">Lucas Pereira <span class="stars">★★★★☆</span></div><div style="color:#64748b;margin-top:.25rem;">Aula ótima.</div></div>
+      <div class="review"><div class="autor">Camila Rocha <span class="stars">★★★★★</span></div><div style="color:#64748b;margin-top:.25rem;">Resolveu um problema elétrico complicado.</div></div>
     </section>
   </main>
 
